@@ -73,7 +73,7 @@ function StatusChip({ status }: { status: string }) {
                     background: c.dot,
                 }}
             />
-            {status}
+            {{ draft: 'Borrador', sent: 'Enviada', paid: 'Pagada', overdue: 'Vencida', cancelled: 'Cancelada' }[status] ?? status}
         </span>
     );
 }
@@ -92,7 +92,7 @@ function formatCurrency(v: number) {
 function formatDate(d: string | null) {
     if (!d) return '—';
     const dt = new Date(d + 'T00:00:00');
-    return dt.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    return dt.toLocaleDateString('es-DO', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
 function formatTerms(t: string) {
@@ -145,7 +145,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
     function handleMarkPaid() {
         if (
             window.confirm(
-                `Mark invoice ${invoice.invoice_number} as paid?\n\nThis action cannot be undone.`,
+                `¿Marcar la factura ${invoice.invoice_number} como pagada?\n\nEsta acción no se puede deshacer.`,
             )
         ) {
             router.patch(`/invoices/${invoice.id}/mark-paid`);
@@ -176,7 +176,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
                 }}
             >
                 <ArrowLeft size={15} />
-                Back to Invoices
+                Volver a Facturas
             </button>
 
             <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
@@ -249,10 +249,10 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
                                 }}
                             >
                                 {[
-                                    { label: 'Issued', value: formatDate(invoice.issued_at) },
-                                    { label: 'Due', value: formatDate(invoice.due_date) },
+                                    { label: 'Emitida', value: formatDate(invoice.issued_at) },
+                                    { label: 'Vence', value: formatDate(invoice.due_date) },
                                     ...(invoice.paid_at
-                                        ? [{ label: 'Paid', value: formatDate(invoice.paid_at) }]
+                                        ? [{ label: 'Pagada', value: formatDate(invoice.paid_at) }]
                                         : []),
                                 ].map(({ label, value }) => (
                                     <div key={label}>
@@ -285,7 +285,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
 
                     {/* Orders table card */}
                     <Card>
-                        <CardHeader>Orders ({invoice.orders.length})</CardHeader>
+                        <CardHeader>Órdenes ({invoice.orders.length})</CardHeader>
                         <div style={{ overflowX: 'auto' }}>
                             <table
                                 style={{
@@ -296,7 +296,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
                             >
                                 <thead>
                                     <tr style={{ borderBottom: '1px solid #E0EBED' }}>
-                                        {['Order #', 'Date', 'Service', 'Route', 'Carrier', 'Amount'].map(
+                                        {['Orden #', 'Fecha', 'Servicio', 'Ruta', 'Naviera', 'Monto'].map(
                                             (h) => (
                                                 <th
                                                     key={h}
@@ -366,7 +366,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
                                                                 whiteSpace: 'nowrap',
                                                             }}
                                                         >
-                                                            {o.type}
+                                                            {{ import: 'Importación', export: 'Exportación' }[o.type] ?? o.type}
                                                         </span>
                                                     )}
                                                 </td>
@@ -411,7 +411,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
 
                     {/* Financials card */}
                     <Card>
-                        <CardHeader>Financials</CardHeader>
+                        <CardHeader>Finanzas</CardHeader>
                         <div style={{ padding: '16px 24px' }}>
                             <div style={{ maxWidth: '320px', marginLeft: 'auto' }}>
                                 {[
@@ -475,7 +475,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
                     {/* Notes */}
                     {invoice.notes && (
                         <Card>
-                            <CardHeader>Notes</CardHeader>
+                            <CardHeader>Notas</CardHeader>
                             <div
                                 style={{
                                     padding: '16px 24px',
@@ -503,7 +503,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
                                     marginBottom: '16px',
                                 }}
                             >
-                                Actions
+                                Acciones
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -529,7 +529,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
                                     }}
                                 >
                                     <Download size={14} />
-                                    Download PDF
+                                    Descargar PDF
                                 </button>
 
                                 {/* Mark as Sent */}
@@ -553,7 +553,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
                                         }}
                                     >
                                         <CheckCheck size={14} />
-                                        Mark as Sent
+                                        Marcar como enviada
                                     </button>
                                 )}
 
@@ -578,7 +578,7 @@ export default function ShowInvoice({ invoice }: ShowInvoiceProps) {
                                         }}
                                     >
                                         <CreditCard size={14} />
-                                        Mark as Paid
+                                        Marcar como pagada
                                     </button>
                                 )}
                             </div>

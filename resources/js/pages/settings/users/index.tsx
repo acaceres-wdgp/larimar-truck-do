@@ -25,33 +25,33 @@ const ROLES: Record<
 > = {
     administrator: {
         color: '#1a4e57',
-        label: 'Administrator',
-        description: 'Full access, including users, catalogs and billing.',
+        label: 'Administrador',
+        description: 'Acceso total, incluyendo usuarios, catálogos y facturación.',
     },
     operations: {
         color: '#2E8055',
-        label: 'Operations',
-        description: 'Runs the board and the fleet. No user management.',
+        label: 'Operaciones',
+        description: 'Gestiona el tablero y la flota. Sin administración de usuarios.',
     },
     dispatcher: {
         color: '#B07C2E',
-        label: 'Dispatcher',
-        description: 'Schedules and updates trips. Read-only elsewhere.',
+        label: 'Despachador',
+        description: 'Programa y actualiza viajes. Solo lectura en el resto.',
     },
     accountant: {
         color: '#4A6BB0',
-        label: 'Accountant',
-        description: 'Invoices, receivables and client billing data.',
+        label: 'Contador',
+        description: 'Facturas, cuentas por cobrar y datos de facturación de clientes.',
     },
     viewer: {
         color: '#8AA4A9',
-        label: 'Viewer',
-        description: 'Looks, never touches. Good for owners and auditors.',
+        label: 'Observador',
+        description: 'Solo visualiza. Ideal para propietarios y auditores.',
     },
     custom: {
         color: '#7E9AA0',
-        label: 'Custom',
-        description: 'Hand-picked permissions.',
+        label: 'Personalizado',
+        description: 'Permisos seleccionados manualmente.',
     },
 };
 
@@ -157,10 +157,10 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
 
     async function handleDelete(user: UserRow) {
         if (user.id === currentUserId) {
-            showToast("You can't remove your own account", 'error');
+            showToast('No puedes eliminar tu propia cuenta', 'error');
             return;
         }
-        if (!confirm(`Remove ${user.name}? This cannot be undone.`)) return;
+        if (!confirm(`¿Eliminar a ${user.name}? Esta acción no se puede deshacer.`)) return;
 
         const res = await fetch(`/settings/users/${user.id}`, {
             method: 'DELETE',
@@ -172,16 +172,16 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
 
         if (res.ok) {
             setUsers((prev) => prev.filter((u) => u.id !== user.id));
-            showToast(`${user.name} removed`);
+            showToast(`${user.name} eliminado`);
         } else {
             const data = await res.json().catch(() => ({}));
-            showToast(data.error ?? 'Could not remove user', 'error');
+            showToast(data.error ?? 'No se pudo eliminar el usuario', 'error');
         }
     }
 
     async function handleToggleStatus(user: UserRow) {
         if (user.id === currentUserId) {
-            showToast("You can't suspend your own account", 'error');
+            showToast('No puedes suspender tu propia cuenta', 'error');
             return;
         }
 
@@ -202,7 +202,7 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
             );
         } else {
             const data = await res.json().catch(() => ({}));
-            showToast(data.error ?? 'Could not update status', 'error');
+            showToast(data.error ?? 'No se pudo actualizar el estado', 'error');
         }
     }
 
@@ -225,9 +225,9 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
 
     return (
         <>
-            <Head title="Settings – Users" />
+            <Head title="Configuración – Usuarios" />
             <SettingsLayout
-                ctaLabel="Invite user"
+                ctaLabel="Invitar usuario"
                 onCta={() => {
                     window.location.href = '/settings/users/create';
                 }}
@@ -259,7 +259,7 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                 <div style={{ marginBottom: '16px' }}>
                     <input
                         type="text"
-                        placeholder="Search by name, email, role…"
+                        placeholder="Buscar por nombre, correo, rol…"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         style={{
@@ -297,13 +297,13 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                             alignItems: 'center',
                         }}
                     >
-                        <div style={hdrSt}>User</div>
-                        <div style={hdrSt}>Role</div>
-                        {lg && <div style={hdrSt}>Access</div>}
-                        {md && <div style={hdrSt}>Last active</div>}
-                        <div style={hdrSt}>Status</div>
+                        <div style={hdrSt}>Usuario</div>
+                        <div style={hdrSt}>Rol</div>
+                        {lg && <div style={hdrSt}>Acceso</div>}
+                        {md && <div style={hdrSt}>Último acceso</div>}
+                        <div style={hdrSt}>Estado</div>
                         <div style={{ ...hdrSt, textAlign: 'right' }}>
-                            Actions
+                            Acciones
                         </div>
                     </div>
 
@@ -374,7 +374,7 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                                                         marginLeft: '6px',
                                                     }}
                                                 >
-                                                    (you)
+                                                    (tú)
                                                 </span>
                                             )}
                                         </div>
@@ -451,8 +451,8 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                                         disabled={isOwn}
                                         title={
                                             isOwn
-                                                ? 'Cannot change own status'
-                                                : 'Toggle status'
+                                                ? 'No puedes cambiar tu propio estado'
+                                                : 'Cambiar estado'
                                         }
                                         style={{
                                             display: 'inline-flex',
@@ -479,8 +479,7 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                                                 flexShrink: 0,
                                             }}
                                         />
-                                        {user.status.charAt(0).toUpperCase() +
-                                            user.status.slice(1)}
+                                        {{ active: 'Activo', invited: 'Invitado', suspended: 'Suspendido' }[user.status] ?? user.status}
                                     </button>
                                 </div>
 
@@ -494,7 +493,7 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                                 >
                                     <Link
                                         href={`/settings/users/${user.id}/edit`}
-                                        title="Edit"
+                                        title="Editar"
                                         style={{
                                             width: '30px',
                                             height: '30px',
@@ -514,8 +513,8 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                                         onClick={() => handleDelete(user)}
                                         title={
                                             isOwn
-                                                ? "Can't remove own account"
-                                                : 'Remove user'
+                                                ? 'No puedes eliminar tu propia cuenta'
+                                                : 'Eliminar usuario'
                                         }
                                         style={{
                                             width: '30px',
@@ -553,7 +552,7 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                                 borderTop: '1px solid #EFF5F6',
                             }}
                         >
-                            No users match your search.
+                            Ningún usuario coincide con tu búsqueda.
                         </div>
                     )}
 
@@ -570,12 +569,11 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                         }}
                     >
                         <div style={{ fontSize: '11.5px', color: '#7E9AA0' }}>
-                            {users.length} users · {activeCount} active ·{' '}
-                            {invitedCount} invited
+                            {users.length} usuarios · {activeCount} activos ·{' '}
+                            {invitedCount} invitados
                         </div>
                         <div style={{ fontSize: '11.5px', color: '#7E9AA0' }}>
-                            Suspending a user keeps their history but blocks
-                            sign-in.
+                            Suspender un usuario conserva su historial pero bloquea el acceso.
                         </div>
                     </div>
                 </div>
@@ -590,7 +588,7 @@ export default function UsersIndex({ users: initialUsers }: PageProps) {
                             marginBottom: '14px',
                         }}
                     >
-                        Roles
+                        Roles de usuario
                     </div>
                     <div
                         style={{

@@ -157,7 +157,7 @@ const CONTAINER_SIZES = ["20'", "40'", "40' HC"];
 const CARGO_TYPES = ["Dry", "Reefer", "Hazardous"];
 
 function formatDate(dateStr: string): string {
-    return new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", {
+    return new Date(dateStr + "T00:00:00").toLocaleDateString("es-DO", {
         weekday: "long",
         month: "short",
         day: "numeric",
@@ -334,10 +334,10 @@ export default function TripForm({
     // Summary computations
     const clientName =
         clients.find((c) => c.id === Number(form.data.client_id))?.name ??
-        "Not selected";
+        "Sin seleccionar";
     const lineName =
         shipping_lines.find((l) => l.id === Number(form.data.shipping_line_id))
-            ?.name ?? "Not selected";
+            ?.name ?? "Sin seleccionar";
 
     const originName =
         form.data.origin_type === "city"
@@ -363,7 +363,7 @@ export default function TripForm({
     const crew =
         truckPlate && driverName
             ? `${truckPlate} · ${driverName}`
-            : truckPlate || driverName || "Not assigned";
+            : truckPlate || driverName || "Sin asignar";
 
     const rate = Number(form.data.rate) || 0;
     const costs =
@@ -374,11 +374,11 @@ export default function TripForm({
     const marginPct = rate > 0 ? Math.round((margin / rate) * 100) : 0;
 
     const dateLabel = !form.data.trip_date
-        ? "No date selected"
+        ? "Sin fecha seleccionada"
         : form.data.trip_date === today
-          ? `Today, ${formatDate(String(form.data.trip_date))}`
+          ? `Hoy, ${formatDate(String(form.data.trip_date))}`
           : form.data.trip_date === tomorrow
-            ? `Tomorrow, ${formatDate(String(form.data.trip_date))}`
+            ? `Mañana, ${formatDate(String(form.data.trip_date))}`
             : formatDate(String(form.data.trip_date));
 
     const originValue =
@@ -392,7 +392,7 @@ export default function TripForm({
 
     const hasErrors = Object.keys(form.errors).length > 0;
 
-    const pageTitle = isEdit ? "Edit trip" : "Schedule a trip";
+    const pageTitle = isEdit ? "Editar viaje" : "Programar un viaje";
 
     // [hoverCancel, hoverSubmit]
     const [hoverCancel, setHoverCancel] = useState(false);
@@ -421,14 +421,14 @@ export default function TripForm({
                             marginBottom: "4px",
                         }}
                     >
-                        Home /{" "}
+                        Inicio /{" "}
                         <Link
                             href="/dashboard"
                             style={{ color: "#4a909f", textDecoration: "none" }}
                         >
-                            Dashboard
+                            Panel
                         </Link>{" "}
-                        / Schedule a trip
+                        / {pageTitle}
                     </div>
                     <h2
                         style={{
@@ -461,7 +461,7 @@ export default function TripForm({
                             transition: "background 0.12s",
                         }}
                     >
-                        Cancel
+                        Cancelar
                     </button>
                     <button
                         type="submit"
@@ -486,10 +486,10 @@ export default function TripForm({
                         }}
                     >
                         {form.processing
-                            ? "Saving…"
+                            ? "Guardando…"
                             : isEdit
-                              ? "Update trip"
-                              : "Schedule trip"}
+                              ? "Actualizar viaje"
+                              : "Programar viaje"}
                     </button>
                 </div>
             </div>
@@ -523,7 +523,7 @@ export default function TripForm({
                                 marginBottom: "4px",
                             }}
                         >
-                            Trip details
+                            Detalles del viaje
                         </div>
                         <div
                             style={{
@@ -532,12 +532,11 @@ export default function TripForm({
                                 marginBottom: "20px",
                             }}
                         >
-                            One trip carries one container. Fields marked with *
-                            are required.
+                            Un viaje transporta un contenedor. Los campos marcados con * son obligatorios.
                         </div>
 
                         {/* ── ORDER ── */}
-                        <div style={sectionTitleStyle}>Order</div>
+                        <div style={sectionTitleStyle}>Orden</div>
 
                         {/* Direction toggle */}
                         <div
@@ -591,7 +590,7 @@ export default function TripForm({
                                                     : "#5E7A80",
                                         }}
                                     >
-                                        Import
+                                        Importación
                                     </span>
                                 </div>
                                 <div
@@ -603,7 +602,7 @@ export default function TripForm({
                                                 : "#5E7A80",
                                     }}
                                 >
-                                    Port → City
+                                    Puerto → Ciudad
                                 </div>
                             </button>
                             <button
@@ -657,7 +656,7 @@ export default function TripForm({
                                                     : "#5E7A80",
                                         }}
                                     >
-                                        Export
+                                        Exportación
                                     </span>
                                 </div>
                                 <div
@@ -669,14 +668,14 @@ export default function TripForm({
                                                 : "#5E7A80",
                                     }}
                                 >
-                                    City → Port
+                                    Ciudad → Puerto
                                 </div>
                             </button>
                         </div>
 
                         <div style={fieldGrid}>
                             <div>
-                                <label style={labelStyle}>Order number</label>
+                                <label style={labelStyle}>Número de orden</label>
                                 <input
                                     style={inputStyle}
                                     value={form.data.order_number}
@@ -690,7 +689,7 @@ export default function TripForm({
                                 />
                             </div>
                             <div>
-                                <label style={labelStyle}>Trip date *</label>
+                                <label style={labelStyle}>Fecha del viaje *</label>
                                 <input
                                     type="date"
                                     style={inputStyle}
@@ -715,7 +714,7 @@ export default function TripForm({
                                 )}
                             </div>
                             <div>
-                                <label style={labelStyle}>Client *</label>
+                                <label style={labelStyle}>Cliente *</label>
                                 <select
                                     style={inputStyle}
                                     value={form.data.client_id}
@@ -726,7 +725,7 @@ export default function TripForm({
                                         )
                                     }
                                 >
-                                    <option value="">— Select client —</option>
+                                    <option value="">— Seleccionar cliente —</option>
                                     {clients.map((c) => (
                                         <option key={c.id} value={c.id}>
                                             {c.name}
@@ -747,7 +746,7 @@ export default function TripForm({
                             </div>
                             <div>
                                 <label style={labelStyle}>
-                                    Shipping line *
+                                    Naviera *
                                 </label>
                                 <select
                                     style={inputStyle}
@@ -759,7 +758,7 @@ export default function TripForm({
                                         )
                                     }
                                 >
-                                    <option value="">— Select line —</option>
+                                    <option value="">— Seleccionar naviera —</option>
                                     {shipping_lines.map((l) => (
                                         <option key={l.id} value={l.id}>
                                             {l.name}
@@ -783,11 +782,11 @@ export default function TripForm({
                         <div style={dividerStyle} />
 
                         {/* ── ROUTE ── */}
-                        <div style={sectionTitleStyle}>Route</div>
+                        <div style={sectionTitleStyle}>Ruta</div>
 
                         <div style={fieldGrid}>
                             <div>
-                                <label style={labelStyle}>Origin *</label>
+                                <label style={labelStyle}>Origen *</label>
                                 <select
                                     style={inputStyle}
                                     value={originValue}
@@ -795,8 +794,8 @@ export default function TripForm({
                                         handleOriginChange(e.target.value)
                                     }
                                 >
-                                    <option value="">— Select origin —</option>
-                                    <optgroup label="Ports">
+                                    <option value="">— Seleccionar origen —</option>
+                                    <optgroup label="Puertos">
                                         {ports.map((p) => (
                                             <option
                                                 key={`port:${p.id}`}
@@ -806,7 +805,7 @@ export default function TripForm({
                                             </option>
                                         ))}
                                     </optgroup>
-                                    <optgroup label="Cities">
+                                    <optgroup label="Ciudades">
                                         {cities.map((c) => (
                                             <option
                                                 key={`city:${c.id}`}
@@ -830,7 +829,7 @@ export default function TripForm({
                                 )}
                             </div>
                             <div>
-                                <label style={labelStyle}>Destination *</label>
+                                <label style={labelStyle}>Destino *</label>
                                 <select
                                     style={inputStyle}
                                     value={destValue}
@@ -839,9 +838,9 @@ export default function TripForm({
                                     }
                                 >
                                     <option value="">
-                                        — Select destination —
+                                        — Seleccionar destino —
                                     </option>
-                                    <optgroup label="Ports">
+                                    <optgroup label="Puertos">
                                         {ports.map((p) => (
                                             <option
                                                 key={`port:${p.id}`}
@@ -851,7 +850,7 @@ export default function TripForm({
                                             </option>
                                         ))}
                                     </optgroup>
-                                    <optgroup label="Cities">
+                                    <optgroup label="Ciudades">
                                         {cities.map((c) => (
                                             <option
                                                 key={`city:${c.id}`}
@@ -875,7 +874,7 @@ export default function TripForm({
                                 )}
                             </div>
                             <div>
-                                <label style={labelStyle}>Distance (km)</label>
+                                <label style={labelStyle}>Distancia (km)</label>
                                 <input
                                     type="number"
                                     style={inputStyle}
@@ -891,7 +890,7 @@ export default function TripForm({
                                 />
                             </div>
                             <div>
-                                <label style={labelStyle}>Status</label>
+                                <label style={labelStyle}>Estado</label>
                                 <select
                                     style={inputStyle}
                                     value={form.data.status}
@@ -901,7 +900,7 @@ export default function TripForm({
                                 >
                                     {STATUSES.map((s) => (
                                         <option key={s} value={s}>
-                                            {s}
+                                            {{ Scheduled: 'Programado', 'At port': 'En puerto', 'On the road': 'En ruta', Paused: 'Pausado', Delayed: 'Retrasado', Completed: 'Completado' }[s] ?? s}
                                         </option>
                                     ))}
                                 </select>
@@ -911,12 +910,12 @@ export default function TripForm({
                         <div style={dividerStyle} />
 
                         {/* ── CONTAINER ── */}
-                        <div style={sectionTitleStyle}>Container</div>
+                        <div style={sectionTitleStyle}>Contenedor</div>
 
                         <div style={fieldGrid}>
                             <div>
                                 <label style={labelStyle}>
-                                    Container number
+                                    Número de contenedor
                                 </label>
                                 <input
                                     style={inputStyle}
@@ -931,7 +930,7 @@ export default function TripForm({
                                 />
                             </div>
                             <div>
-                                <label style={labelStyle}>Size</label>
+                                <label style={labelStyle}>Tamaño</label>
                                 <select
                                     style={inputStyle}
                                     value={form.data.container_size}
@@ -950,7 +949,7 @@ export default function TripForm({
                                 </select>
                             </div>
                             <div>
-                                <label style={labelStyle}>Cargo type</label>
+                                <label style={labelStyle}>Tipo de carga</label>
                                 <select
                                     style={inputStyle}
                                     value={form.data.cargo_type}
@@ -969,7 +968,7 @@ export default function TripForm({
                                 </select>
                             </div>
                             <div>
-                                <label style={labelStyle}>Weight (tons)</label>
+                                <label style={labelStyle}>Peso (toneladas)</label>
                                 <input
                                     type="number"
                                     style={inputStyle}
@@ -990,7 +989,7 @@ export default function TripForm({
                         <div style={dividerStyle} />
 
                         {/* ── ASSIGNMENT ── */}
-                        <div style={sectionTitleStyle}>Assignment</div>
+                        <div style={sectionTitleStyle}>Asignación</div>
                         <div
                             style={{
                                 fontSize: "12px",
@@ -998,15 +997,14 @@ export default function TripForm({
                                 marginBottom: "12px",
                             }}
                         >
-                            Both truck and driver are required to schedule a
-                            trip. They can be reassigned later from the trip
-                            board.
+                            Se requiere camión y chofer para programar el viaje.
+                            Se pueden reasignar desde el tablero de operaciones.
                         </div>
 
                         <div style={fieldGrid}>
                             <div>
                                 <label style={labelStyle}>
-                                    Truck{" "}
+                                    Camión{" "}
                                     <span style={{ color: "#C4483A" }}>*</span>
                                 </label>
                                 <select
@@ -1021,7 +1019,7 @@ export default function TripForm({
                                         form.setData("truck_id", e.target.value)
                                     }
                                 >
-                                    <option value="">— Select truck —</option>
+                                    <option value="">— Seleccionar camión —</option>
                                     {trucks.map((t) => {
                                         const busy =
                                             form.data.trip_date &&
@@ -1048,7 +1046,7 @@ export default function TripForm({
                                                 disabled={!!busy}
                                             >
                                                 {busy
-                                                    ? `${t.plate} (not available)`
+                                                    ? `${t.plate} (no disponible)`
                                                     : t.plate}
                                             </option>
                                         );
@@ -1068,7 +1066,7 @@ export default function TripForm({
                             </div>
                             <div>
                                 <label style={labelStyle}>
-                                    Driver{" "}
+                                    Chofer{" "}
                                     <span style={{ color: "#C4483A" }}>*</span>
                                 </label>
                                 <select
@@ -1086,7 +1084,7 @@ export default function TripForm({
                                         )
                                     }
                                 >
-                                    <option value="">— Select driver —</option>
+                                    <option value="">— Seleccionar chofer —</option>
                                     {drivers.map((d) => {
                                         const busy =
                                             form.data.trip_date &&
@@ -1105,7 +1103,7 @@ export default function TripForm({
                                                 disabled={!!busy}
                                             >
                                                 {busy
-                                                    ? `${d.name} (not available)`
+                                                    ? `${d.name} (no disponible)`
                                                     : d.name}
                                             </option>
                                         );
@@ -1129,13 +1127,13 @@ export default function TripForm({
 
                         {/* ── RATE & COSTS ── */}
                         <div style={sectionTitleStyle}>
-                            Rate &amp; Costs (RD$)
+                            Tarifa y costos (RD$)
                         </div>
 
                         <div style={fieldGrid}>
                             <div>
                                 <label style={labelStyle}>
-                                    Rate charged to client
+                                    Tarifa al cliente
                                 </label>
                                 <input
                                     type="number"
@@ -1150,7 +1148,7 @@ export default function TripForm({
                                 />
                             </div>
                             <div>
-                                <label style={labelStyle}>Fuel</label>
+                                <label style={labelStyle}>Combustible</label>
                                 <input
                                     type="number"
                                     style={inputStyle}
@@ -1167,7 +1165,7 @@ export default function TripForm({
                                 />
                             </div>
                             <div>
-                                <label style={labelStyle}>Tolls</label>
+                                <label style={labelStyle}>Peajes</label>
                                 <input
                                     type="number"
                                     style={inputStyle}
@@ -1184,7 +1182,7 @@ export default function TripForm({
                                 />
                             </div>
                             <div>
-                                <label style={labelStyle}>Driver pay</label>
+                                <label style={labelStyle}>Pago al chofer</label>
                                 <input
                                     type="number"
                                     style={inputStyle}
@@ -1270,10 +1268,9 @@ export default function TripForm({
                                         fontSize: "13.5px",
                                         fontWeight: 600,
                                         color: "#123238",
-                                        textTransform: "capitalize" as const,
                                     }}
                                 >
-                                    {form.data.direction || "Import"}
+                                    {{ import: 'Importación', export: 'Exportación' }[form.data.direction] ?? 'Importación'}
                                 </div>
                                 <div
                                     style={{
@@ -1334,13 +1331,13 @@ export default function TripForm({
                             }}
                         >
                             {[
-                                { label: "Client", value: clientName },
-                                { label: "Line", value: lineName },
+                                { label: "Cliente", value: clientName },
+                                { label: "Naviera", value: lineName },
                                 {
-                                    label: "Container",
+                                    label: "Contenedor",
                                     value: form.data.container_number || "—",
                                 },
-                                { label: "Crew", value: crew },
+                                { label: "Equipo", value: crew },
                             ].map(({ label, value }) => (
                                 <div
                                     key={label}
@@ -1393,7 +1390,7 @@ export default function TripForm({
                                         color: "#7E9AA0",
                                     }}
                                 >
-                                    Rate
+                                    Tarifa
                                 </span>
                                 <span
                                     style={{
@@ -1418,7 +1415,7 @@ export default function TripForm({
                                         color: "#7E9AA0",
                                     }}
                                 >
-                                    Costs
+                                    Costos
                                 </span>
                                 <span
                                     style={{
@@ -1446,7 +1443,7 @@ export default function TripForm({
                                         fontWeight: 500,
                                     }}
                                 >
-                                    Margin
+                                    Margen
                                 </span>
                                 <div style={{ textAlign: "right" as const }}>
                                     <div

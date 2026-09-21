@@ -28,14 +28,14 @@ interface PageProps {
 
 const STATUS_CFG = {
     Active: {
-        label: 'Active',
+        label: 'Activo',
         bg: '#E6F4EC',
         fg: '#1F5C3D',
         dot: '#2E8055',
         ring: '#B8E0C4',
     },
     Inactive: {
-        label: 'Inactive',
+        label: 'Inactivo',
         bg: '#F2F4F5',
         fg: '#4A5568',
         dot: '#718096',
@@ -44,9 +44,9 @@ const STATUS_CFG = {
 };
 
 const STATUS_TABS: { key: string; label: string }[] = [
-    { key: 'all', label: 'All' },
-    { key: 'Active', label: 'Active' },
-    { key: 'Inactive', label: 'Inactive' },
+    { key: 'all', label: 'Todos' },
+    { key: 'Active', label: 'Activo' },
+    { key: 'Inactive', label: 'Inactivo' },
 ];
 
 function formatMoney(n: number): string {
@@ -120,7 +120,7 @@ export default function ClientsIndex({ clients }: PageProps) {
 
     return (
         <>
-            <Head title="Clients" />
+            <Head title="Clientes" />
 
             {/* Page header */}
             <div
@@ -141,7 +141,7 @@ export default function ClientsIndex({ clients }: PageProps) {
                             marginBottom: '4px',
                         }}
                     >
-                        Home / Clients
+                        Inicio / Clientes
                     </div>
                     <h2
                         style={{
@@ -153,7 +153,7 @@ export default function ClientsIndex({ clients }: PageProps) {
                             color: '#123238',
                         }}
                     >
-                        Accounts
+                        Cuentas
                     </h2>
                 </div>
                 <div style={{ display: 'flex', gap: '9px' }}>
@@ -170,7 +170,7 @@ export default function ClientsIndex({ clients }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Export
+                        Exportar
                     </button>
                     <button
                         onClick={() => router.get('/clients/create')}
@@ -190,7 +190,7 @@ export default function ClientsIndex({ clients }: PageProps) {
                         }}
                     >
                         <Plus size={15} strokeWidth={2} color="#b9f7fc" />
-                        New client
+                        Nuevo cliente
                     </button>
                 </div>
             </div>
@@ -228,11 +228,11 @@ export default function ClientsIndex({ clients }: PageProps) {
                                 color: '#123238',
                             }}
                         >
-                            Accounts
+                            Cuentas
                         </h3>
                         <div style={{ fontSize: '12.5px', color: '#5E7A80' }}>
-                            {totalCount} clients · {activeCount} active ·{' '}
-                            {formatMoney(totalBalance)} receivable
+                            {totalCount} clientes · {activeCount} activos ·{' '}
+                            {formatMoney(totalBalance)} por cobrar
                         </div>
                     </div>
                     <div
@@ -265,7 +265,7 @@ export default function ClientsIndex({ clients }: PageProps) {
                             <input
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
-                                placeholder="Name, RNC, contact…"
+                                placeholder="Nombre, RNC, contacto…"
                                 style={{
                                     border: 'none',
                                     background: 'transparent',
@@ -333,18 +333,18 @@ export default function ClientsIndex({ clients }: PageProps) {
                         borderBottom: '1px solid #EFF5F6',
                     }}
                 >
-                    {showLogo && <div style={thStyle}>Logo</div>}
-                    <div style={thStyle}>Client</div>
-                    {showContact && <div style={thStyle}>Primary contact</div>}
-                    {showTerms && <div style={thStyle}>Terms</div>}
+                    {showLogo && <div style={thStyle}>Imagen</div>}
+                    <div style={thStyle}>Cliente</div>
+                    {showContact && <div style={thStyle}>Contacto principal</div>}
+                    {showTerms && <div style={thStyle}>Condiciones</div>}
                     {showBalance && (
                         <div style={{ ...thStyle, textAlign: 'right' }}>
                             Balance
                         </div>
                     )}
-                    <div style={thStyle}>Status</div>
+                    <div style={thStyle}>Estado</div>
                     <div style={{ ...thStyle, textAlign: 'right' }}>
-                        Actions
+                        Acciones
                     </div>
                 </div>
 
@@ -373,7 +373,7 @@ export default function ClientsIndex({ clients }: PageProps) {
                             color: '#5E7A80',
                         }}
                     >
-                        No clients match this filter.
+                        Ningún cliente coincide con este filtro.
                     </div>
                 )}
 
@@ -390,7 +390,7 @@ export default function ClientsIndex({ clients }: PageProps) {
                     }}
                 >
                     <span style={{ fontSize: '11.5px', color: '#5E7A80' }}>
-                        Showing {filtered.length} of {totalCount} clients
+                        Mostrando {filtered.length} de {totalCount} clientes
                     </span>
                     <span
                         style={{
@@ -399,7 +399,7 @@ export default function ClientsIndex({ clients }: PageProps) {
                             color: '#5E7A80',
                         }}
                     >
-                        {overLimitCount} over their credit limit
+                        {overLimitCount} sobre su límite de crédito
                     </span>
                 </div>
             </section>
@@ -623,7 +623,7 @@ function ClientRowItem({
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        of {formatMoney(client.credit_limit)}
+                        de {formatMoney(client.credit_limit)}
                     </div>
                 </div>
             )}
@@ -676,7 +676,7 @@ function ClientRowItem({
                     onClick={() => router.get(`/clients/${client.id}`)}
                     onMouseEnter={() => setHoverView(true)}
                     onMouseLeave={() => setHoverView(false)}
-                    title="View client"
+                    title="Ver cliente"
                     style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -697,7 +697,7 @@ function ClientRowItem({
                     onClick={() => router.get(`/clients/${client.id}/edit`)}
                     onMouseEnter={() => setHoverEdit(true)}
                     onMouseLeave={() => setHoverEdit(false)}
-                    title="Edit client"
+                    title="Editar cliente"
                     style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -718,7 +718,7 @@ function ClientRowItem({
                     onClick={() => onDelete(client)}
                     onMouseEnter={() => setHoverDelete(true)}
                     onMouseLeave={() => setHoverDelete(false)}
-                    title="Remove client"
+                    title="Eliminar cliente"
                     style={{
                         display: 'flex',
                         alignItems: 'center',

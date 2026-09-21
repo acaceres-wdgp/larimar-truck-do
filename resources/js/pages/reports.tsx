@@ -93,11 +93,11 @@ function RevenueTable({ rows }: { rows: RevenueRow[] }) {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                     <tr style={{ background: '#F5F9FA' }}>
-                        <th style={thStyle}>Month</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Trips</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Revenue</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Costs</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Margin</th>
+                        <th style={thStyle}>Mes</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Viajes</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Ingresos</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Costos</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Margen</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,10 +123,10 @@ function ClientsTable({ rows }: { rows: ClientRow[] }) {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                     <tr style={{ background: '#F5F9FA' }}>
-                        <th style={thStyle}>Client</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Trips</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Revenue</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Avg / Trip</th>
+                        <th style={thStyle}>Cliente</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Viajes</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Ingresos</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Promedio / viaje</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -151,11 +151,11 @@ function DriversTable({ rows }: { rows: DriverRow[] }) {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                     <tr style={{ background: '#F5F9FA' }}>
-                        <th style={thStyle}>Driver</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Trips</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Revenue</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Total Pay</th>
-                        <th style={{ ...thStyle, textAlign: 'right' }}>Avg Pay</th>
+                        <th style={thStyle}>Chofer</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Viajes</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Ingresos</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Pago total</th>
+                        <th style={{ ...thStyle, textAlign: 'right' }}>Pago promedio</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -177,7 +177,7 @@ function DriversTable({ rows }: { rows: DriverRow[] }) {
 function EmptyState() {
     return (
         <div style={{ padding: '48px 24px', textAlign: 'center', color: '#9DB3B8', fontSize: '14px' }}>
-            No data for the selected period.
+            Sin datos para el período seleccionado.
         </div>
     );
 }
@@ -185,9 +185,9 @@ function EmptyState() {
 // ── Report tabs config ────────────────────────────────────────────────────────
 
 const TABS: { key: ReportType; label: string; desc: string }[] = [
-    { key: 'revenue', label: 'Revenue',  desc: 'Monthly revenue, costs and margin' },
-    { key: 'clients', label: 'Clients',  desc: 'Revenue breakdown by client' },
-    { key: 'drivers', label: 'Drivers',  desc: 'Trips and pay per driver' },
+    { key: 'revenue', label: 'Ingresos',  desc: 'Ingresos mensuales, costos y margen' },
+    { key: 'clients', label: 'Clientes',  desc: 'Desglose de ingresos por cliente' },
+    { key: 'drivers', label: 'Choferes',  desc: 'Viajes y pagos por chofer' },
 ];
 
 // ── Page ──────────────────────────────────────────────────────────────────────
@@ -211,18 +211,18 @@ export default function Reports({ type, from, to, rows, totals }: ReportsProps) 
 
     return (
         <>
-            <Head title="Reports" />
+            <Head title="Reportes" />
 
             {/* KPI summary */}
             <div style={{ display: 'flex', gap: '16px', marginBottom: '20px', flexWrap: 'wrap' }}>
-                <KpiCard label="Trips" value={String(totals.trips)} sub="In period" />
-                <KpiCard label="Revenue" value={fmt(totals.revenue)} sub="Total billed" />
-                <KpiCard label="Costs" value={fmt(totals.costs)} sub="Driver pay + fuel + tolls" />
+                <KpiCard label="Viajes" value={String(totals.trips)} sub="En el período" />
+                <KpiCard label="Ingresos" value={fmt(totals.revenue)} sub="Total facturado" />
+                <KpiCard label="Costos" value={fmt(totals.costs)} sub="Pago a choferes + combustible + peajes" />
                 <KpiCard
-                    label="Margin"
+                    label="Margen"
                     value={fmt(totals.margin)}
                     sub={totals.revenue > 0
-                        ? `${Math.round((totals.margin / totals.revenue) * 100)}% of revenue`
+                        ? `${Math.round((totals.margin / totals.revenue) * 100)}% de los ingresos`
                         : undefined}
                 />
             </div>
@@ -267,14 +267,14 @@ export default function Reports({ type, from, to, rows, totals }: ReportsProps) 
 
                     {/* Date range + run */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                        <label style={{ fontSize: '12px', color: '#5E7A80' }}>From</label>
+                        <label style={{ fontSize: '12px', color: '#5E7A80' }}>Desde</label>
                         <input
                             type="date"
                             value={fromVal}
                             onChange={e => setFromVal(e.target.value)}
                             style={dateInputStyle}
                         />
-                        <label style={{ fontSize: '12px', color: '#5E7A80' }}>To</label>
+                        <label style={{ fontSize: '12px', color: '#5E7A80' }}>Hasta</label>
                         <input
                             type="date"
                             value={toVal}
@@ -294,7 +294,7 @@ export default function Reports({ type, from, to, rows, totals }: ReportsProps) 
                                 cursor: 'pointer',
                             }}
                         >
-                            Run
+                            Consultar
                         </button>
                     </div>
                 </div>

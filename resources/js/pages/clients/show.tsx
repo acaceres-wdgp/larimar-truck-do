@@ -51,14 +51,14 @@ interface PageProps {
 
 const CLIENT_STATUS_CFG = {
     Active: {
-        label: 'Active',
+        label: 'Activo',
         bg: '#E6F4EC',
         fg: '#1F5C3D',
         dot: '#2E8055',
         ring: '#B8E0C4',
     },
     Inactive: {
-        label: 'Inactive',
+        label: 'Inactivo',
         bg: '#F2F4F5',
         fg: '#4A5568',
         dot: '#718096',
@@ -238,12 +238,12 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                             marginBottom: '4px',
                         }}
                     >
-                        Home /{' '}
+                        Inicio /{' '}
                         <Link
                             href="/clients"
                             style={{ color: '#4a909f', textDecoration: 'none' }}
                         >
-                            Clients
+                            Clientes
                         </Link>{' '}
                         / {client.name}
                     </div>
@@ -275,7 +275,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Back to clients
+                        Volver a clientes
                     </button>
                     <button
                         onClick={() => router.get(`/clients/${client.id}/edit`)}
@@ -295,7 +295,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                         }}
                     >
                         <Pencil size={14} strokeWidth={1.5} color="#b9f7fc" />
-                        Edit client
+                        Editar cliente
                     </button>
                 </div>
             </div>
@@ -430,7 +430,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                             >
                                 <div>
                                     <div style={fieldLabelStyle}>
-                                        Client type
+                                        Tipo de cliente
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {client.kind}
@@ -438,7 +438,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                 </div>
                                 <div>
                                     <div style={fieldLabelStyle}>
-                                        RNC / Tax ID
+                                        RNC / ID fiscal
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {client.tax_id}
@@ -446,41 +446,41 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                 </div>
                                 <div>
                                     <div style={fieldLabelStyle}>
-                                        Primary contact
+                                        Contacto principal
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {client.contact_name ?? '—'}
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={fieldLabelStyle}>Role</div>
+                                    <div style={fieldLabelStyle}>Cargo</div>
                                     <div style={fieldValueStyle}>
                                         {client.contact_role ?? '—'}
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={fieldLabelStyle}>Phone</div>
+                                    <div style={fieldLabelStyle}>Teléfono</div>
                                     <div style={fieldValueStyle}>
                                         {client.contact_phone ?? '—'}
                                     </div>
                                 </div>
                                 <div>
                                     <div style={fieldLabelStyle}>
-                                        Payment terms
+                                        Condiciones de pago
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {client.payment_terms}
                                     </div>
                                 </div>
                                 <div style={{ gridColumn: '1 / -1' }}>
-                                    <div style={fieldLabelStyle}>Email</div>
+                                    <div style={fieldLabelStyle}>Correo electrónico</div>
                                     <div style={fieldValueStyle}>
                                         {client.contact_email ?? '—'}
                                     </div>
                                 </div>
                                 <div style={{ gridColumn: '1 / -1' }}>
                                     <div style={fieldLabelStyle}>
-                                        Client since
+                                        Cliente desde
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {client.client_since
@@ -502,21 +502,21 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                     >
                         {[
                             {
-                                label: 'Trips on record',
+                                label: 'Viajes registrados',
                                 value: String(metrics.trips_total),
                             },
                             {
-                                label: 'Completed',
+                                label: 'Completados',
                                 value: String(metrics.completed),
                             },
                             {
-                                label: 'Distance (km)',
+                                label: 'Distancia (km)',
                                 value: metrics.distance_km.toLocaleString(
                                     'en-US',
                                 ),
                             },
                             {
-                                label: 'Last trip',
+                                label: 'Último viaje',
                                 value: metrics.last_trip_date
                                     ? formatDate(metrics.last_trip_date)
                                     : '—',
@@ -593,12 +593,12 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                     color: '#123238',
                                 }}
                             >
-                                Balance &amp; receivables
+                                Saldo y cobros
                             </h3>
                             <div
                                 style={{ fontSize: '12.5px', color: '#5E7A80' }}
                             >
-                                Payment terms {client.payment_terms} · updated{' '}
+                                Condiciones {client.payment_terms} · actualizado{' '}
                                 {todayFormatted}
                             </div>
                         </div>
@@ -633,7 +633,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                             marginBottom: '6px',
                                         }}
                                     >
-                                        Outstanding
+                                        Pendiente
                                     </div>
                                     <div
                                         style={{
@@ -654,7 +654,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                             marginTop: '4px',
                                         }}
                                     >
-                                        {client.open_invoices} open invoices
+                                        {client.open_invoices} facturas abiertas
                                     </div>
                                 </div>
 
@@ -677,7 +677,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                             marginBottom: '6px',
                                         }}
                                     >
-                                        Overdue 30+
+                                        Vencido 30+
                                     </div>
                                     <div
                                         style={{
@@ -705,8 +705,8 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                         }}
                                     >
                                         {client.overdue > 0
-                                            ? 'Follow up required'
-                                            : 'Nothing past due'}
+                                            ? 'Requiere seguimiento'
+                                            : 'Sin vencimientos'}
                                     </div>
                                 </div>
 
@@ -729,7 +729,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                             marginBottom: '6px',
                                         }}
                                     >
-                                        Credit limit
+                                        Límite de crédito
                                     </div>
                                     <div
                                         style={{
@@ -775,7 +775,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                             marginBottom: '6px',
                                         }}
                                     >
-                                        Available
+                                        Disponible
                                     </div>
                                     <div
                                         style={{
@@ -803,8 +803,8 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                         }}
                                     >
                                         {isOverLimit
-                                            ? 'Over the limit'
-                                            : 'Full credit available'}
+                                            ? 'Sobre el límite'
+                                            : 'Crédito completo disponible'}
                                     </div>
                                 </div>
                             </div>
@@ -824,7 +824,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                             color: '#7E9AA0',
                                         }}
                                     >
-                                        Credit used
+                                        Crédito utilizado
                                     </span>
                                     <span
                                         style={{
@@ -883,13 +883,12 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                     color: '#123238',
                                 }}
                             >
-                                Trip history
+                                Historial de viajes
                             </h3>
                             <div
                                 style={{ fontSize: '12.5px', color: '#5E7A80' }}
                             >
-                                Most recent first · {trips.length} trips on
-                                record
+                                Más recientes primero · {trips.length} viajes registrados
                             </div>
                         </div>
 
@@ -905,20 +904,20 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                 borderBottom: '1px solid #EFF5F6',
                             }}
                         >
-                            <div style={thStyle}>Date</div>
-                            <div style={thStyle}>Route</div>
+                            <div style={thStyle}>Fecha</div>
+                            <div style={thStyle}>Ruta</div>
                             {tripTier !== 'compact' && (
-                                <div style={thStyle}>Truck · driver</div>
+                                <div style={thStyle}>Camión · chofer</div>
                             )}
                             {tripTier === 'full' && (
-                                <div style={thStyle}>Line</div>
+                                <div style={thStyle}>Naviera</div>
                             )}
                             {tripTier === 'full' && (
                                 <div style={{ ...thStyle, textAlign: 'right' }}>
                                     Km
                                 </div>
                             )}
-                            <div style={thStyle}>Status</div>
+                            <div style={thStyle}>Estado</div>
                         </div>
 
                         {/* Trip rows */}
@@ -931,7 +930,7 @@ export default function ClientShow({ client, trips, metrics }: PageProps) {
                                     color: '#5E7A80',
                                 }}
                             >
-                                No trips recorded for this client yet.
+                                Aún no hay viajes registrados para este cliente.
                             </div>
                         ) : (
                             trips.map((trip) => (
@@ -1006,7 +1005,7 @@ function ClientTripRow({ trip, tripGridCols, tripTier }: ClientTripRowProps) {
                         color: isImport ? '#1a4e57' : '#4a909f',
                     }}
                 >
-                    {isImport ? 'Import' : 'Export'}
+                    {isImport ? 'Importación' : 'Exportación'}
                 </span>
             </div>
 
@@ -1106,7 +1105,7 @@ function ClientTripRow({ trip, tripGridCols, tripTier }: ClientTripRowProps) {
                             flexShrink: 0,
                         }}
                     />
-                    {trip.status}
+                    {({ Completed: 'Completado', 'On the road': 'En ruta', Scheduled: 'Programado', 'At port': 'En puerto', Paused: 'Pausado', Delayed: 'Retrasado', Cancelled: 'Cancelado' } as Record<string,string>)[trip.status] ?? trip.status}
                 </span>
             </div>
         </div>

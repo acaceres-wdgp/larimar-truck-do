@@ -19,7 +19,7 @@ interface PayrollIndexProps {
     runs: PayrollRunRow[];
 }
 
-const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_SHORT = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
 function formatDate(iso: string): string {
     const d = new Date(iso + 'T00:00:00');
@@ -64,7 +64,7 @@ function StatusChip({ status }: { status: string }) {
             whiteSpace: 'nowrap',
         }}>
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: c.dot, flexShrink: 0 }} />
-            {status.charAt(0).toUpperCase() + status.slice(1)}
+            {{ draft: 'Borrador', approved: 'Aprobado', paid: 'Pagado' }[status] ?? (status.charAt(0).toUpperCase() + status.slice(1))}
         </span>
     );
 }
@@ -113,10 +113,10 @@ function KpiCard({ label, value, sub }: KpiCardProps) {
 }
 
 const FILTER_TABS: Array<{ key: string; label: string }> = [
-    { key: 'all',      label: 'All' },
-    { key: 'draft',    label: 'Draft' },
-    { key: 'approved', label: 'Approved' },
-    { key: 'paid',     label: 'Paid' },
+    { key: 'all',      label: 'Todos' },
+    { key: 'draft',    label: 'Borrador' },
+    { key: 'approved', label: 'Aprobado' },
+    { key: 'paid',     label: 'Pagado' },
 ];
 
 export default function PayrollIndex({ totalPending, driversPending, lastRunDate, runs }: PayrollIndexProps) {
@@ -132,24 +132,24 @@ export default function PayrollIndex({ totalPending, driversPending, lastRunDate
 
     return (
         <>
-            <Head title="Payroll" />
+            <Head title="Nómina" />
 
             {/* KPI cards */}
             <div style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexWrap: 'wrap' }}>
                 <KpiCard
-                    label="Pending Payout"
+                    label="Pago pendiente"
                     value={`RD$${totalPending.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`}
-                    sub="Driver payments not yet processed"
+                    sub="Pagos a choferes sin procesar"
                 />
                 <KpiCard
-                    label="Drivers Pending"
+                    label="Choferes pendientes"
                     value={`${driversPending}`}
-                    sub="With unpaid completed trips"
+                    sub="Con viajes completados sin pagar"
                 />
                 <KpiCard
-                    label="Last Payroll"
-                    value={lastRunDate ? formatDate(lastRunDate) : 'None yet'}
-                    sub="Most recent run"
+                    label="Último ciclo de nómina"
+                    value={lastRunDate ? formatDate(lastRunDate) : 'Ninguno aún'}
+                    sub="Ejecución más reciente"
                 />
             </div>
 
@@ -177,7 +177,7 @@ export default function PayrollIndex({ totalPending, driversPending, lastRunDate
                             fontWeight: 600,
                             color: '#123238',
                         }}>
-                            Payroll Runs
+                            Ciclos de nómina
                         </span>
                         <span style={{
                             background: '#EEF4F5',
@@ -207,7 +207,7 @@ export default function PayrollIndex({ totalPending, driversPending, lastRunDate
                             cursor: 'pointer',
                         }}
                     >
-                        + New Payroll Run
+                        + Nuevo ciclo de nómina
                     </Link>
                 </div>
 
@@ -250,20 +250,20 @@ export default function PayrollIndex({ totalPending, driversPending, lastRunDate
                         color: '#9DB3B8',
                         fontSize: '14px',
                     }}>
-                        No payroll runs found.
+                        No se encontraron ciclos de nómina.
                     </div>
                 ) : (
                     <div style={{ overflowX: 'auto' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead>
                                 <tr style={{ background: '#F5F9FA' }}>
-                                    <th style={thStyle}>Period</th>
-                                    <th style={thStyle}>Drivers</th>
+                                    <th style={thStyle}>Período</th>
+                                    <th style={thStyle}>Choferes</th>
                                     <th style={{ ...thStyle, textAlign: 'right' }}>Total</th>
-                                    <th style={thStyle}>Status</th>
-                                    <th style={thStyle}>Approved</th>
-                                    <th style={thStyle}>Paid</th>
-                                    <th style={{ ...thStyle, textAlign: 'right' }}>Actions</th>
+                                    <th style={thStyle}>Estado</th>
+                                    <th style={thStyle}>Aprobado</th>
+                                    <th style={thStyle}>Pagado</th>
+                                    <th style={{ ...thStyle, textAlign: 'right' }}>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -319,7 +319,7 @@ export default function PayrollIndex({ totalPending, driversPending, lastRunDate
                                                     textDecoration: 'none',
                                                 }}
                                             >
-                                                View
+                                                Ver
                                             </Link>
                                         </td>
                                     </tr>

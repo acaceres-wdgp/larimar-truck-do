@@ -172,7 +172,7 @@ export default function ClientForm({ client }: PageProps) {
     const hasErrors = Object.keys(form.errors).length > 0;
     const firstError = form.errors.name || form.errors.tax_id;
 
-    const pageTitle = isEdit ? `Edit ${client.name}` : 'New client';
+    const pageTitle = isEdit ? `Editar ${client.name}` : 'Nuevo cliente';
 
     const previewInitials = form.data.name ? getInitials(form.data.name) : '??';
 
@@ -199,12 +199,12 @@ export default function ClientForm({ client }: PageProps) {
                             marginBottom: '4px',
                         }}
                     >
-                        Home / Clients /{' '}
+                        Inicio / Clientes /{' '}
                         <Link
                             href="/clients"
                             style={{ color: '#4a909f', textDecoration: 'none' }}
                         >
-                            Back to clients
+                            Volver a clientes
                         </Link>
                     </div>
                     <h2
@@ -237,7 +237,7 @@ export default function ClientForm({ client }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Cancel
+                        Cancelar
                     </Link>
                     <button
                         form="client-form"
@@ -255,7 +255,7 @@ export default function ClientForm({ client }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Save client
+                        Guardar cliente
                     </button>
                 </div>
             </div>
@@ -297,22 +297,22 @@ export default function ClientForm({ client }: PageProps) {
                                     color: '#123238',
                                 }}
                             >
-                                Client details
+                                Detalles del cliente
                             </h3>
                             <div
                                 style={{ fontSize: '12.5px', color: '#5E7A80' }}
                             >
-                                Fields marked with * are required.
+                                Los campos marcados con * son obligatorios.
                             </div>
                         </div>
 
                         <div style={{ padding: '20px' }}>
                             {/* ACCOUNT */}
-                            <div style={sectionTitleStyle}>Account</div>
+                            <div style={sectionTitleStyle}>Cuenta</div>
                             <div style={fieldGridStyle}>
                                 <div>
                                     <label style={labelStyle}>
-                                        Client type
+                                        Tipo de cliente
                                     </label>
                                     <select
                                         value={form.data.kind}
@@ -321,14 +321,14 @@ export default function ClientForm({ client }: PageProps) {
                                         }
                                         style={inputStyle}
                                     >
-                                        <option value="Company">Company</option>
+                                        <option value="Company">Empresa</option>
                                         <option value="Individual">
                                             Individual
                                         </option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label style={labelStyle}>Status</label>
+                                    <label style={labelStyle}>Estado</label>
                                     <select
                                         value={form.data.status}
                                         onChange={(e) =>
@@ -339,15 +339,15 @@ export default function ClientForm({ client }: PageProps) {
                                         }
                                         style={inputStyle}
                                     >
-                                        <option value="Active">Active</option>
+                                        <option value="Active">Activo</option>
                                         <option value="Inactive">
-                                            Inactive
+                                            Inactivo
                                         </option>
                                     </select>
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        Legal name *
+                                        Nombre legal *
                                     </label>
                                     <input
                                         value={form.data.name}
@@ -365,7 +365,7 @@ export default function ClientForm({ client }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        RNC / Tax ID *
+                                        RNC / ID fiscal *
                                     </label>
                                     <input
                                         value={form.data.tax_id}
@@ -386,7 +386,7 @@ export default function ClientForm({ client }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        Client since
+                                        Cliente desde
                                     </label>
                                     <input
                                         type="date"
@@ -405,11 +405,11 @@ export default function ClientForm({ client }: PageProps) {
                             <div style={dividerStyle} />
 
                             {/* PRIMARY CONTACT */}
-                            <div style={sectionTitleStyle}>Primary contact</div>
+                            <div style={sectionTitleStyle}>Contacto principal</div>
                             <div style={fieldGridStyle}>
                                 <div>
                                     <label style={labelStyle}>
-                                        Contact name
+                                        Nombre del contacto
                                     </label>
                                     <input
                                         value={form.data.contact_name}
@@ -424,7 +424,7 @@ export default function ClientForm({ client }: PageProps) {
                                     />
                                 </div>
                                 <div>
-                                    <label style={labelStyle}>Role</label>
+                                    <label style={labelStyle}>Cargo</label>
                                     <input
                                         value={form.data.contact_role}
                                         onChange={(e) =>
@@ -433,12 +433,12 @@ export default function ClientForm({ client }: PageProps) {
                                                 e.target.value,
                                             )
                                         }
-                                        placeholder="Logistics manager"
+                                        placeholder="Gerente de logística"
                                         style={inputStyle}
                                     />
                                 </div>
                                 <div>
-                                    <label style={labelStyle}>Phone</label>
+                                    <label style={labelStyle}>Teléfono</label>
                                     <input
                                         value={form.data.contact_phone}
                                         onChange={(e) =>
@@ -452,7 +452,7 @@ export default function ClientForm({ client }: PageProps) {
                                     />
                                 </div>
                                 <div>
-                                    <label style={labelStyle}>Email</label>
+                                    <label style={labelStyle}>Correo electrónico</label>
                                     <input
                                         type="email"
                                         value={form.data.contact_email}
@@ -471,11 +471,11 @@ export default function ClientForm({ client }: PageProps) {
                             <div style={dividerStyle} />
 
                             {/* BILLING */}
-                            <div style={sectionTitleStyle}>Billing</div>
+                            <div style={sectionTitleStyle}>Facturación</div>
                             <div style={fieldGridStyle}>
                                 <div>
                                     <label style={labelStyle}>
-                                        Payment terms
+                                        Condiciones de pago
                                     </label>
                                     <select
                                         value={form.data.payment_terms}
@@ -496,7 +496,7 @@ export default function ClientForm({ client }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        Credit limit (RD$)
+                                        Límite de crédito (RD$)
                                     </label>
                                     <input
                                         type="number"
@@ -564,7 +564,7 @@ export default function ClientForm({ client }: PageProps) {
                             Logo
                         </h3>
                         <div style={{ fontSize: '12.5px', color: '#5E7A80' }}>
-                            Shown in lists, invoices and trip documents.
+                            Visible en listas, facturas y documentos de viaje.
                         </div>
                     </div>
                     <div style={{ padding: '20px' }}>
@@ -594,7 +594,7 @@ export default function ClientForm({ client }: PageProps) {
                             {logoPreview ? (
                                 <img
                                     src={logoPreview}
-                                    alt="Client logo"
+                                    alt="Logo del cliente"
                                     style={{
                                         width: '100%',
                                         height: '100%',
@@ -625,8 +625,7 @@ export default function ClientForm({ client }: PageProps) {
                                 textAlign: 'center',
                             }}
                         >
-                            PNG with transparent background works best. Without
-                            a logo we show the client's initials.
+                            PNG con fondo transparente es ideal. Sin logo mostramos las iniciales del cliente.
                         </p>
                     </div>
                 </section>

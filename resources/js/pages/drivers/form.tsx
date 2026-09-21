@@ -161,8 +161,8 @@ export default function DriverForm({ driver }: PageProps) {
         form.errors.license_number;
 
     const pageTitle = isEdit
-        ? `Edit ${driver.first_name} ${driver.last_name}`
-        : 'New driver';
+        ? `Editar ${driver.first_name} ${driver.last_name}`
+        : 'Nuevo chofer';
 
     return (
         <>
@@ -187,19 +187,19 @@ export default function DriverForm({ driver }: PageProps) {
                             marginBottom: '4px',
                         }}
                     >
-                        Home /{' '}
+                        Inicio /{' '}
                         <Link
                             href="/drivers"
                             style={{ color: '#4a909f', textDecoration: 'none' }}
                         >
-                            Drivers
+                            Choferes
                         </Link>{' '}
                         /{' '}
                         <Link
                             href="/drivers"
                             style={{ color: '#4a909f', textDecoration: 'none' }}
                         >
-                            Back to crew
+                            Volver a choferes
                         </Link>
                     </div>
                     <h2
@@ -232,7 +232,7 @@ export default function DriverForm({ driver }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Cancel
+                        Cancelar
                     </Link>
                     <button
                         form="driver-form"
@@ -250,7 +250,7 @@ export default function DriverForm({ driver }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Save driver
+                        Guardar chofer
                     </button>
                 </div>
             </div>
@@ -292,21 +292,21 @@ export default function DriverForm({ driver }: PageProps) {
                                     color: '#123238',
                                 }}
                             >
-                                Driver details
+                                Detalles del chofer
                             </h3>
                             <div
                                 style={{ fontSize: '12.5px', color: '#5E7A80' }}
                             >
-                                Fields marked with * are required.
+                                Los campos marcados con * son obligatorios.
                             </div>
                         </div>
 
                         <div style={{ padding: '20px' }}>
                             {/* IDENTITY */}
-                            <div style={sectionTitleStyle}>Identity</div>
+                            <div style={sectionTitleStyle}>Identidad</div>
                             <div style={fieldGridStyle}>
                                 <div>
-                                    <label style={labelStyle}>Name *</label>
+                                    <label style={labelStyle}>Nombre *</label>
                                     <input
                                         value={form.data.first_name}
                                         onChange={(e) =>
@@ -326,7 +326,7 @@ export default function DriverForm({ driver }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        Last name *
+                                        Apellido *
                                     </label>
                                     <input
                                         value={form.data.last_name}
@@ -347,7 +347,7 @@ export default function DriverForm({ driver }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        National ID
+                                        Cédula
                                     </label>
                                     <input
                                         value={form.data.national_id}
@@ -362,7 +362,7 @@ export default function DriverForm({ driver }: PageProps) {
                                     />
                                 </div>
                                 <div>
-                                    <label style={labelStyle}>Status</label>
+                                    <label style={labelStyle}>Estado</label>
                                     <select
                                         value={form.data.status}
                                         onChange={(e) =>
@@ -374,14 +374,14 @@ export default function DriverForm({ driver }: PageProps) {
                                         style={inputStyle}
                                     >
                                         <option value="available">
-                                            Available
+                                            Disponible
                                         </option>
-                                        <option value="on_trip">On trip</option>
+                                        <option value="on_trip">En viaje</option>
                                         <option value="on_leave">
-                                            On leave
+                                            De licencia
                                         </option>
                                         <option value="inactive">
-                                            Inactive
+                                            Inactivo
                                         </option>
                                     </select>
                                 </div>
@@ -390,10 +390,10 @@ export default function DriverForm({ driver }: PageProps) {
                             <div style={dividerStyle} />
 
                             {/* CONTACT */}
-                            <div style={sectionTitleStyle}>Contact</div>
+                            <div style={sectionTitleStyle}>Contacto</div>
                             <div style={fieldGridStyle}>
                                 <div>
-                                    <label style={labelStyle}>Phone</label>
+                                    <label style={labelStyle}>Teléfono</label>
                                     <input
                                         value={form.data.phone}
                                         onChange={(e) =>
@@ -408,7 +408,7 @@ export default function DriverForm({ driver }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        Emergency contact
+                                        Contacto de emergencia
                                     </label>
                                     <input
                                         value={form.data.emergency_contact}
@@ -418,7 +418,7 @@ export default function DriverForm({ driver }: PageProps) {
                                                 e.target.value,
                                             )
                                         }
-                                        placeholder="Name + phone"
+                                        placeholder="Nombre + teléfono"
                                         style={inputStyle}
                                     />
                                 </div>
@@ -427,11 +427,11 @@ export default function DriverForm({ driver }: PageProps) {
                             <div style={dividerStyle} />
 
                             {/* LICENSE */}
-                            <div style={sectionTitleStyle}>License</div>
+                            <div style={sectionTitleStyle}>Licencia</div>
                             <div style={fieldGridStyle}>
                                 <div>
                                     <label style={labelStyle}>
-                                        Driver license *
+                                        Licencia de conducir *
                                     </label>
                                     <input
                                         value={form.data.license_number}
@@ -453,7 +453,7 @@ export default function DriverForm({ driver }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        License category
+                                        Categoría de licencia
                                     </label>
                                     <select
                                         value={form.data.license_category}
@@ -465,7 +465,7 @@ export default function DriverForm({ driver }: PageProps) {
                                         }
                                         style={inputStyle}
                                     >
-                                        <option value="">— Select —</option>
+                                        <option value="">— Seleccionar —</option>
                                         {LICENSE_CATEGORIES.map((c) => (
                                             <option key={c} value={c}>
                                                 {c}
@@ -475,7 +475,7 @@ export default function DriverForm({ driver }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        License expires
+                                        Vencimiento de licencia
                                     </label>
                                     <input
                                         type="date"
@@ -494,13 +494,13 @@ export default function DriverForm({ driver }: PageProps) {
                             <div style={dividerStyle} />
 
                             {/* NOTES */}
-                            <div style={sectionTitleStyle}>Notes</div>
+                            <div style={sectionTitleStyle}>Notas</div>
                             <textarea
                                 value={form.data.notes}
                                 onChange={(e) =>
                                     form.setData('notes', e.target.value)
                                 }
-                                placeholder="Routes he knows, certifications, restrictions…"
+                                placeholder="Rutas conocidas, certificaciones, restricciones…"
                                 rows={4}
                                 style={{
                                     ...inputStyle,
@@ -556,10 +556,10 @@ export default function DriverForm({ driver }: PageProps) {
                                 color: '#123238',
                             }}
                         >
-                            Photo
+                            Foto
                         </h3>
                         <div style={{ fontSize: '12.5px', color: '#5E7A80' }}>
-                            Used in dispatch lists and trip assignments.
+                            Se usa en listas de despacho y asignaciones de viaje.
                         </div>
                     </div>
                     <div style={{ padding: '20px' }}>
@@ -614,7 +614,7 @@ export default function DriverForm({ driver }: PageProps) {
                                             textAlign: 'center',
                                         }}
                                     >
-                                        Add photo
+                                        Agregar foto
                                     </span>
                                 </div>
                             )}
@@ -629,8 +629,8 @@ export default function DriverForm({ driver }: PageProps) {
                                 textAlign: 'center',
                             }}
                         >
-                            Square headshot, at least 400×400. If there is no
-                            photo we show the driver's initials.
+                            Foto cuadrada, mínimo 400×400. Si no hay foto se
+                            muestran las iniciales del chofer.
                         </p>
                     </div>
                 </section>

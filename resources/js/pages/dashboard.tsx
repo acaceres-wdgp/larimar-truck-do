@@ -135,12 +135,13 @@ export default function Dashboard({
     billedThisMonth = 0,
     billingLast6Months = [],
 }: DashboardProps) {
+    const MONTHS_ES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
     const now = new Date();
-    const monthName = now.toLocaleString('en-US', { month: 'long' });
+    const monthName = MONTHS_ES[now.getMonth()];
 
     return (
         <>
-            <Head title="Dashboard" />
+            <Head title="Panel" />
 
             {/* KPI cards */}
             <div
@@ -152,19 +153,19 @@ export default function Dashboard({
                 }}
             >
                 <KpiCard
-                    label="Trips today"
+                    label="Viajes hoy"
                     value={String(tripsToday)}
-                    sub="Scheduled for today"
+                    sub="Programados para hoy"
                 />
                 <KpiCard
-                    label="Trips this month"
+                    label="Viajes este mes"
                     value={String(tripsThisMonth)}
                     sub={monthName}
                 />
                 <KpiCard
-                    label="Billed this month"
+                    label="Facturado este mes"
                     value={formatCurrency(billedThisMonth)}
-                    sub={`${monthName} revenue`}
+                    sub={`Ingresos de ${monthName}`}
                 />
             </div>
 
@@ -186,7 +187,7 @@ export default function Dashboard({
                         marginBottom: '4px',
                     }}
                 >
-                    Revenue
+                    Ingresos
                 </div>
                 <div
                     style={{
@@ -195,7 +196,7 @@ export default function Dashboard({
                         marginBottom: '24px',
                     }}
                 >
-                    Last 6 months
+                    Últimos 6 meses
                 </div>
 
                 <ResponsiveContainer width="100%" height={240}>

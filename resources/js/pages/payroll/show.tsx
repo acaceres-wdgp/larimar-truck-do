@@ -41,7 +41,7 @@ interface ShowPayrollProps {
     run: PayrollRunDetail;
 }
 
-const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_SHORT = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
 function formatDate(iso: string): string {
     const d = new Date(iso + 'T00:00:00');
@@ -85,7 +85,7 @@ function StatusChip({ status }: { status: string }) {
             fontWeight: 600,
         }}>
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: c.dot, flexShrink: 0 }} />
-            {status.charAt(0).toUpperCase() + status.slice(1)}
+            {{ draft: 'Borrador', approved: 'Aprobado', paid: 'Pagado' }[status] ?? (status.charAt(0).toUpperCase() + status.slice(1))}
         </span>
     );
 }
@@ -150,7 +150,7 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
 
     function handleMarkPaid() {
         if (markingPaid) return;
-        if (!window.confirm('Mark this payroll run as paid? This cannot be undone.')) return;
+        if (!window.confirm('¿Marcar este ciclo de nómina como pagado? Esta acción no se puede deshacer.')) return;
         setMarkingPaid(true);
         router.patch(`/payroll/${run.id}/mark-paid`, {}, {
             onSuccess: () => {
@@ -171,12 +171,12 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
 
     return (
         <>
-            <Head title={`Payroll Run #${run.id}`} />
+            <Head title={`Ciclo de nómina #${run.id}`} />
 
             {/* Back link */}
             <div style={{ marginBottom: '16px' }}>
                 <a href="/payroll" style={{ fontSize: '13px', color: '#5E7A80', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    ← Back to Payroll
+                    ← Volver a Nómina
                 </a>
             </div>
 
@@ -186,21 +186,21 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                     <div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px', flexWrap: 'wrap' }}>
                             <h1 style={{ fontFamily: "'Bitter', Georgia, serif", fontSize: '20px', fontWeight: 700, color: '#123238', margin: 0 }}>
-                                Payroll Run
+                                Ciclo de nómina
                             </h1>
                             <StatusChip status={run.status} />
                         </div>
                         <div style={{ fontSize: '14px', color: '#5E7A80', marginBottom: '4px' }}>
-                            Period: <strong style={{ color: '#123238' }}>{formatPeriod(run.period_start, run.period_end)}</strong>
+                            Período: <strong style={{ color: '#123238' }}>{formatPeriod(run.period_start, run.period_end)}</strong>
                         </div>
                         {run.approved_at && (
                             <div style={{ fontSize: '12px', color: '#5E7A80' }}>
-                                Approved: {formatDate(run.approved_at)}
+                                Aprobado: {formatDate(run.approved_at)}
                             </div>
                         )}
                         {run.paid_at && (
                             <div style={{ fontSize: '12px', color: '#1F5C3D', marginTop: '2px', fontWeight: 500 }}>
-                                Paid on {formatDate(run.paid_at)}
+                                Pagado el {formatDate(run.paid_at)}
                             </div>
                         )}
                         {run.notes && (
@@ -210,12 +210,12 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                         )}
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '11px', color: '#5E7A80', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>Total Payout</div>
+                        <div style={{ fontSize: '11px', color: '#5E7A80', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '4px' }}>Pago total</div>
                         <div style={{ fontFamily: "'Bitter', Georgia, serif", fontSize: '32px', fontWeight: 700, color: '#1a4e57' }}>
                             RD${run.total_amount.toLocaleString('en-US', { minimumFractionDigits: 0 })}
                         </div>
                         <div style={{ fontSize: '12px', color: '#5E7A80', marginTop: '2px' }}>
-                            {run.items.length} {run.items.length === 1 ? 'driver' : 'drivers'}
+                            {run.items.length} {run.items.length === 1 ? 'chofer' : 'choferes'}
                         </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                         onClick={() => window.open(`/payroll/${run.id}/pdf`, '_blank')}
                         style={outlineBtnStyle}
                     >
-                        Download PDF
+                        Descargar PDF
                     </button>
                     {run.status === 'draft' && (
                         <button
@@ -243,7 +243,7 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                                 cursor: approving ? 'not-allowed' : 'pointer',
                             }}
                         >
-                            {approving ? 'Approving…' : 'Approve Run'}
+                            {approving ? 'Aprobando…' : 'Aprobar ciclo'}
                         </button>
                     )}
                     {run.status === 'approved' && (
@@ -261,7 +261,7 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                                 cursor: markingPaid ? 'not-allowed' : 'pointer',
                             }}
                         >
-                            {markingPaid ? 'Marking…' : 'Mark All Paid'}
+                            {markingPaid ? 'Marcando…' : 'Marcar todo como pagado'}
                         </button>
                     )}
                 </div>
@@ -271,7 +271,7 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
             <div style={cardStyle}>
                 <div style={{ padding: '16px 24px', borderBottom: '1px solid #E0EBED' }}>
                     <span style={{ fontFamily: "'Bitter', Georgia, serif", fontSize: '16px', fontWeight: 600, color: '#123238' }}>
-                        Driver Breakdown
+                        Desglose por chofer
                     </span>
                 </div>
 
@@ -280,12 +280,12 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
                             <tr style={{ background: '#F5F9FA' }}>
-                                <th style={thStyle}>Driver</th>
-                                <th style={{ ...thStyle, textAlign: 'center' }}>Trips</th>
-                                <th style={{ ...thStyle, textAlign: 'right' }}>Gross Pay</th>
-                                <th style={{ ...thStyle, textAlign: 'right' }}>Deductions</th>
-                                <th style={{ ...thStyle, textAlign: 'right' }}>Net Pay</th>
-                                <th style={thStyle}>Status</th>
+                                <th style={thStyle}>Chofer</th>
+                                <th style={{ ...thStyle, textAlign: 'center' }}>Viajes</th>
+                                <th style={{ ...thStyle, textAlign: 'right' }}>Pago bruto</th>
+                                <th style={{ ...thStyle, textAlign: 'right' }}>Deducciones</th>
+                                <th style={{ ...thStyle, textAlign: 'right' }}>Pago neto</th>
+                                <th style={thStyle}>Estado</th>
                                 <th style={{ ...thStyle, textAlign: 'center' }}></th>
                             </tr>
                         </thead>
@@ -363,7 +363,7 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                                                     fontWeight: 600,
                                                 }}>
                                                     <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: item.status === 'paid' ? '#2E8055' : '#9B9B9B' }} />
-                                                    {item.status === 'paid' ? 'Paid' : 'Pending'}
+                                                    {item.status === 'paid' ? 'Pagado' : 'Pendiente'}
                                                 </span>
                                             </td>
                                             <td style={{ ...tdStyle, textAlign: 'center' }}>
@@ -379,7 +379,7 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                                                         cursor: 'pointer',
                                                     }}
                                                 >
-                                                    {expanded ? 'Hide' : 'Trips'}
+                                                    {expanded ? 'Ocultar' : 'Viajes'}
                                                 </button>
                                             </td>
                                         </tr>
@@ -392,11 +392,11 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                                                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                                             <thead>
                                                                 <tr>
-                                                                    <th style={subThStyle}>Date</th>
-                                                                    <th style={subThStyle}>Client</th>
-                                                                    <th style={subThStyle}>Route</th>
-                                                                    <th style={{ ...subThStyle, textAlign: 'right' }}>Rate</th>
-                                                                    <th style={{ ...subThStyle, textAlign: 'right' }}>Driver Pay</th>
+                                                                    <th style={subThStyle}>Fecha</th>
+                                                                    <th style={subThStyle}>Cliente</th>
+                                                                    <th style={subThStyle}>Ruta</th>
+                                                                    <th style={{ ...subThStyle, textAlign: 'right' }}>Tarifa</th>
+                                                                    <th style={{ ...subThStyle, textAlign: 'right' }}>Pago al chofer</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -437,7 +437,7 @@ export default function ShowPayroll({ run: initialRun }: ShowPayrollProps) {
                     gap: '12px',
                 }}>
                     <span style={{ fontSize: '13px', fontWeight: 600, color: '#5E7A80', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                        Total Payout
+                        Pago total
                     </span>
                     <span style={{ fontFamily: "'Bitter', Georgia, serif", fontSize: '22px', fontWeight: 700, color: '#1a4e57' }}>
                         RD${run.total_amount.toLocaleString('en-US', { minimumFractionDigits: 0 })}

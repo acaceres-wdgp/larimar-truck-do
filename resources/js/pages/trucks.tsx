@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react';
 export default function Trucks() {
     return (
         <>
-            <Head title="Trucks" />
+            <Head title="Camiones" />
             <div
                 className="rounded-[14px] p-8 text-center text-sm"
                 style={{
@@ -12,7 +12,7 @@ export default function Trucks() {
                     color: '#5E7A80',
                 }}
             >
-                Trucks — coming soon.
+                Camiones — próximamente.
             </div>
         </>
     );

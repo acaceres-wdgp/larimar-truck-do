@@ -33,28 +33,28 @@ const STATUS_CFG: Record<
     { label: string; bg: string; fg: string; dot: string; ring: string }
 > = {
     available: {
-        label: 'Available',
+        label: 'Disponible',
         bg: '#E6F4EC',
         fg: '#1F5C3D',
         dot: '#2E8055',
         ring: '#B8E0C4',
     },
     on_trip: {
-        label: 'On trip',
+        label: 'En viaje',
         bg: '#EAF2FA',
         fg: '#2C4E72',
         dot: '#5B84B1',
         ring: '#B3CCE8',
     },
     in_maintenance: {
-        label: 'In maintenance',
+        label: 'En mantenimiento',
         bg: '#FBF2E1',
         fg: '#7A5210',
         dot: '#C68A1E',
         ring: '#E8D5A3',
     },
     out_of_service: {
-        label: 'Out of service',
+        label: 'Fuera de servicio',
         bg: '#FBEAE7',
         fg: '#8A2A21',
         dot: '#C4483A',
@@ -63,11 +63,11 @@ const STATUS_CFG: Record<
 };
 
 const STATUS_TABS: { key: string; label: string }[] = [
-    { key: 'all', label: 'All' },
-    { key: 'available', label: 'Available' },
-    { key: 'on_trip', label: 'On trip' },
-    { key: 'in_maintenance', label: 'In maintenance' },
-    { key: 'out_of_service', label: 'Out of service' },
+    { key: 'all', label: 'Todos' },
+    { key: 'available', label: 'Disponible' },
+    { key: 'on_trip', label: 'En viaje' },
+    { key: 'in_maintenance', label: 'En mantenimiento' },
+    { key: 'out_of_service', label: 'Fuera de servicio' },
 ];
 
 function dueSoonCount(trucks: TruckRow[]): number {
@@ -159,7 +159,7 @@ export default function TrucksIndex({ trucks }: PageProps) {
 
     return (
         <>
-            <Head title="Trucks" />
+            <Head title="Camiones" />
 
             {/* Page header */}
             <div
@@ -180,7 +180,7 @@ export default function TrucksIndex({ trucks }: PageProps) {
                             marginBottom: '4px',
                         }}
                     >
-                        Home / Trucks
+                        Inicio / Camiones
                     </div>
                     <h2
                         style={{
@@ -192,7 +192,7 @@ export default function TrucksIndex({ trucks }: PageProps) {
                             color: '#123238',
                         }}
                     >
-                        Fleet
+                        Flota
                     </h2>
                 </div>
                 <div style={{ display: 'flex', gap: '9px' }}>
@@ -209,7 +209,7 @@ export default function TrucksIndex({ trucks }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Export
+                        Exportar
                     </button>
                     <button
                         onClick={() => router.get('/trucks/create')}
@@ -229,7 +229,7 @@ export default function TrucksIndex({ trucks }: PageProps) {
                         }}
                     >
                         <Plus size={15} strokeWidth={2} color="#b9f7fc" />
-                        New truck
+                        Nuevo camión
                     </button>
                 </div>
             </div>
@@ -267,11 +267,11 @@ export default function TrucksIndex({ trucks }: PageProps) {
                                 color: '#123238',
                             }}
                         >
-                            Trucks
+                            Camiones
                         </h3>
                         <div style={{ fontSize: '12.5px', color: '#5E7A80' }}>
-                            {totalCount} trucks · {availableCount} available ·{' '}
-                            {maintenanceCount} in maintenance
+                            {totalCount} camiones · {availableCount} disponibles ·{' '}
+                            {maintenanceCount} en mantenimiento
                         </div>
                     </div>
                     <div
@@ -304,7 +304,7 @@ export default function TrucksIndex({ trucks }: PageProps) {
                             <input
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
-                                placeholder="Plate, make, type…"
+                                placeholder="Placa, marca, tipo…"
                                 style={{
                                     border: 'none',
                                     background: 'transparent',
@@ -372,14 +372,14 @@ export default function TrucksIndex({ trucks }: PageProps) {
                         borderBottom: '1px solid #EFF5F6',
                     }}
                 >
-                    {showImage && <div style={thStyle}>Image</div>}
-                    <div style={thStyle}>Plate</div>
-                    <div style={thStyle}>Make &amp; model</div>
-                    {showType && <div style={thStyle}>Type</div>}
-                    {showCapacity && <div style={thStyle}>Capacity</div>}
-                    <div style={thStyle}>Status</div>
+                    {showImage && <div style={thStyle}>Imagen</div>}
+                    <div style={thStyle}>Placa</div>
+                    <div style={thStyle}>Marca &amp; modelo</div>
+                    {showType && <div style={thStyle}>Tipo</div>}
+                    {showCapacity && <div style={thStyle}>Capacidad</div>}
+                    <div style={thStyle}>Estado</div>
                     <div style={{ ...thStyle, textAlign: 'right' }}>
-                        Actions
+                        Acciones
                     </div>
                 </div>
 
@@ -410,7 +410,7 @@ export default function TrucksIndex({ trucks }: PageProps) {
                             color: '#5E7A80',
                         }}
                     >
-                        No trucks match this filter.
+                        Ningún camión coincide con este filtro.
                     </div>
                 )}
 
@@ -427,7 +427,7 @@ export default function TrucksIndex({ trucks }: PageProps) {
                     }}
                 >
                     <span style={{ fontSize: '11.5px', color: '#5E7A80' }}>
-                        Showing {filtered.length} of {totalCount} trucks
+                        Mostrando {filtered.length} de {totalCount} camiones
                     </span>
                     <span
                         style={{
@@ -436,8 +436,7 @@ export default function TrucksIndex({ trucks }: PageProps) {
                             color: '#5E7A80',
                         }}
                     >
-                        {dueSoon} with insurance or inspection expiring in 30
-                        days
+                        {dueSoon} con seguro o inspección por vencer en 30 días
                     </span>
                 </div>
             </section>
@@ -650,7 +649,7 @@ function TruckRowItem({
                     onClick={() => router.get(`/trucks/${truck.id}`)}
                     onMouseEnter={() => setHoverView(true)}
                     onMouseLeave={() => setHoverView(false)}
-                    title="View truck"
+                    title="Ver camión"
                     style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -671,7 +670,7 @@ function TruckRowItem({
                     onClick={() => router.get(`/trucks/${truck.id}/edit`)}
                     onMouseEnter={() => setHoverEdit(true)}
                     onMouseLeave={() => setHoverEdit(false)}
-                    title="Edit truck"
+                    title="Editar camión"
                     style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -692,7 +691,7 @@ function TruckRowItem({
                     onClick={() => onDelete(truck)}
                     onMouseEnter={() => setHoverDelete(true)}
                     onMouseLeave={() => setHoverDelete(false)}
-                    title="Remove truck"
+                    title="Eliminar camión"
                     style={{
                         display: 'flex',
                         alignItems: 'center',

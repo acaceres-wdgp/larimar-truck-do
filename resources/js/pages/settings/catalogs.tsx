@@ -37,7 +37,7 @@ interface PageProps {
     initialTab: string;
 }
 
-type TabKey = 'Shipping lines' | 'Cities' | 'Ports';
+type TabKey = 'Navieras' | 'Ciudades' | 'Puertos';
 
 interface TabCfg {
     key: string;
@@ -58,12 +58,12 @@ interface TabCfg {
 }
 
 const TAB_CFG: Record<TabKey, TabCfg> = {
-    'Shipping lines': {
+    Navieras: {
         key: 'lines',
-        add: 'Add shipping line',
-        col1: 'Line',
+        add: 'Agregar naviera',
+        col1: 'Naviera',
         col2: 'SCAC',
-        col3: 'Contact',
+        col3: 'Contacto',
         ph1: 'Maersk',
         ph2: 'MAEU',
         ph3: '+1 809 000 0000 · ops@line.com',
@@ -72,16 +72,16 @@ const TAB_CFG: Record<TabKey, TabCfg> = {
         deleteUrl: (id) => `/settings/catalogs/lines/${id}`,
         toggleUrl: (id) => `/settings/catalogs/lines/${id}/toggle`,
         subtitle:
-            'Carriers you book containers with. Used in the trip board and trip forms.',
+            'Líneas con las que reservas contenedores. Se usan en el tablero de viajes.',
         field2key: 'scac',
         field3key: 'contact',
     },
-    Cities: {
+    Ciudades: {
         key: 'cities',
-        add: 'Add city',
-        col1: 'City',
-        col2: 'Province',
-        col3: 'Km from base',
+        add: 'Agregar ciudad',
+        col1: 'Ciudad',
+        col2: 'Provincia',
+        col3: 'Km desde base',
         ph1: 'La Vega',
         ph2: 'La Vega',
         ph3: '75',
@@ -90,16 +90,16 @@ const TAB_CFG: Record<TabKey, TabCfg> = {
         deleteUrl: (id) => `/settings/catalogs/cities/${id}`,
         toggleUrl: (id) => `/settings/catalogs/cities/${id}/toggle`,
         subtitle:
-            'Pickup and delivery points inland. Distance is measured from your Santiago base.',
+            'Puntos de recogida y entrega en tierra. Distancia medida desde tu base en Santiago.',
         field2key: 'province',
         field3key: 'km_from_base',
     },
-    Ports: {
+    Puertos: {
         key: 'ports',
-        add: 'Add port',
-        col1: 'Port',
-        col2: 'Code',
-        col3: 'Km from base',
+        add: 'Agregar puerto',
+        col1: 'Puerto',
+        col2: 'Código',
+        col3: 'Km desde base',
         ph1: 'Caucedo',
         ph2: 'DOCAU',
         ph3: '214',
@@ -108,7 +108,7 @@ const TAB_CFG: Record<TabKey, TabCfg> = {
         deleteUrl: (id) => `/settings/catalogs/ports/${id}`,
         toggleUrl: (id) => `/settings/catalogs/ports/${id}/toggle`,
         subtitle:
-            'Sea terminals you load from and deliver to. Independent from the city list.',
+            'Terminales marítimas de carga y descarga. Independiente de la lista de ciudades.',
         field2key: 'code',
         field3key: 'km_from_base',
     },
@@ -118,8 +118,8 @@ function getRowField2(
     row: CatalogLine | CatalogCity | CatalogPort,
     tab: TabKey,
 ): string {
-    if (tab === 'Shipping lines') return (row as CatalogLine).scac ?? '';
-    if (tab === 'Cities') return (row as CatalogCity).province ?? '';
+    if (tab === 'Navieras') return (row as CatalogLine).scac ?? '';
+    if (tab === 'Ciudades') return (row as CatalogCity).province ?? '';
     return (row as CatalogPort).code ?? '';
 }
 
@@ -127,8 +127,8 @@ function getRowField3(
     row: CatalogLine | CatalogCity | CatalogPort,
     tab: TabKey,
 ): string {
-    if (tab === 'Shipping lines') return (row as CatalogLine).contact ?? '';
-    if (tab === 'Cities') return String((row as CatalogCity).km_from_base);
+    if (tab === 'Navieras') return (row as CatalogLine).contact ?? '';
+    if (tab === 'Ciudades') return String((row as CatalogCity).km_from_base);
     return String((row as CatalogPort).km_from_base);
 }
 
@@ -139,7 +139,7 @@ export default function Catalogs({
     initialTab,
 }: PageProps) {
     const [tab, setTab] = useState<TabKey>(
-        (initialTab as TabKey) || 'Shipping lines',
+        (initialTab as TabKey) || 'Navieras',
     );
     const [editingId, setEditingId] = useState<number | 'new' | null>(null);
     const [draft, setDraft] = useState({ a: '', b: '', c: '' });
@@ -162,7 +162,7 @@ export default function Catalogs({
 
     const cfg = TAB_CFG[tab];
     const rows: (CatalogLine | CatalogCity | CatalogPort)[] =
-        tab === 'Shipping lines' ? lines : tab === 'Cities' ? cities : ports;
+        tab === 'Navieras' ? lines : tab === 'Ciudades' ? cities : ports;
 
     // Responsive grid
     const wideLayout = sectionW >= 1180;
@@ -201,14 +201,14 @@ export default function Catalogs({
 
     function saveNew() {
         if (!draft.a.trim()) {
-            setError('Name is required.');
+            setError('El nombre es obligatorio.');
             return;
         }
         const dup = rows.find(
             (r) => r.name.toLowerCase() === draft.a.trim().toLowerCase(),
         );
         if (dup) {
-            setError(`"${draft.a.trim()}" already exists in this list.`);
+            setError(`"${draft.a.trim()}" ya existe en esta lista.`);
             return;
         }
         setError('');
@@ -226,7 +226,7 @@ export default function Catalogs({
 
     function saveEdit(id: number) {
         if (!draft.a.trim()) {
-            setError('Name is required.');
+            setError('El nombre es obligatorio.');
             return;
         }
         const dup = rows.find(
@@ -235,7 +235,7 @@ export default function Catalogs({
                 r.id !== id,
         );
         if (dup) {
-            setError(`"${draft.a.trim()}" already exists in this list.`);
+            setError(`"${draft.a.trim()}" ya existe en esta lista.`);
             return;
         }
         setError('');
@@ -272,11 +272,11 @@ export default function Catalogs({
         boxSizing: 'border-box',
     };
 
-    const TAB_KEYS: TabKey[] = ['Shipping lines', 'Cities', 'Ports'];
+    const TAB_KEYS: TabKey[] = ['Navieras', 'Ciudades', 'Puertos'];
 
     return (
         <>
-            <Head title="Settings – Catalogs" />
+            <Head title="Configuración – Catálogos" />
             <SettingsLayout ctaLabel={cfg.add} onCta={startNew}>
                 {/* Main card */}
                 <div
@@ -418,7 +418,7 @@ export default function Catalogs({
                                         textAlign: 'right',
                                     }}
                                 >
-                                    Usage
+                                    Uso
                                 </div>
                             )}
                             <div
@@ -430,7 +430,7 @@ export default function Catalogs({
                                     letterSpacing: '0.06em',
                                 }}
                             >
-                                Status
+                                Estado
                             </div>
                             <div
                                 style={{
@@ -442,7 +442,7 @@ export default function Catalogs({
                                     textAlign: 'right',
                                 }}
                             >
-                                Actions
+                                Acciones
                             </div>
                         </div>
                     </div>
@@ -518,7 +518,7 @@ export default function Catalogs({
                                         >
                                             <button
                                                 onClick={() => saveEdit(row.id)}
-                                                title="Save"
+                                                title="Guardar"
                                                 style={{
                                                     width: '30px',
                                                     height: '30px',
@@ -538,7 +538,7 @@ export default function Catalogs({
                                             </button>
                                             <button
                                                 onClick={cancelEdit}
-                                                title="Cancel"
+                                                title="Cancelar"
                                                 style={{
                                                     width: '30px',
                                                     height: '30px',
@@ -621,7 +621,7 @@ export default function Catalogs({
                                             }}
                                         >
                                             {tripsUsed > 0
-                                                ? `${tripsUsed} trips`
+                                                ? `${tripsUsed} viajes`
                                                 : '—'}
                                         </div>
                                     )}
@@ -629,7 +629,7 @@ export default function Catalogs({
                                     <div>
                                         <button
                                             onClick={() => handleToggle(row.id)}
-                                            title="Toggle active/inactive"
+                                            title="Activar/desactivar"
                                             style={{
                                                 display: 'inline-flex',
                                                 alignItems: 'center',
@@ -659,7 +659,7 @@ export default function Catalogs({
                                                     flexShrink: 0,
                                                 }}
                                             />
-                                            {row.active ? 'Active' : 'Inactive'}
+                                            {row.active ? 'Activo' : 'Inactivo'}
                                         </button>
                                     </div>
                                     {/* Actions */}
@@ -672,7 +672,7 @@ export default function Catalogs({
                                     >
                                         <button
                                             onClick={() => startEdit(row)}
-                                            title="Edit"
+                                            title="Editar"
                                             style={{
                                                 width: '30px',
                                                 height: '30px',
@@ -691,8 +691,8 @@ export default function Catalogs({
                                             onClick={() => handleDelete(row.id)}
                                             title={
                                                 tripsUsed > 0
-                                                    ? 'Used on trips — set inactive instead'
-                                                    : 'Delete'
+                                                    ? 'Usado en viajes — desactívalo en su lugar'
+                                                    : 'Eliminar'
                                             }
                                             style={{
                                                 width: '30px',
@@ -785,7 +785,7 @@ export default function Catalogs({
                                 >
                                     <button
                                         onClick={saveNew}
-                                        title="Save"
+                                        title="Guardar"
                                         style={{
                                             width: '30px',
                                             height: '30px',
@@ -802,7 +802,7 @@ export default function Catalogs({
                                     </button>
                                     <button
                                         onClick={cancelEdit}
-                                        title="Cancel"
+                                        title="Cancelar"
                                         style={{
                                             width: '30px',
                                             height: '30px',
@@ -852,12 +852,11 @@ export default function Catalogs({
                         }}
                     >
                         <div style={{ fontSize: '11.5px', color: '#7E9AA0' }}>
-                            {rows.length} records ·{' '}
-                            {rows.filter((r) => r.active).length} active
+                            {rows.length} registros ·{' '}
+                            {rows.filter((r) => r.active).length} activos
                         </div>
                         <div style={{ fontSize: '11.5px', color: '#7E9AA0' }}>
-                            Records used on a trip can't be deleted — set them
-                            inactive instead.
+                            Los registros usados en viajes no se pueden eliminar — desactívalos.
                         </div>
                     </div>
                 </div>

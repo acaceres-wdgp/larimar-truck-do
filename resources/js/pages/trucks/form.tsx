@@ -163,7 +163,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
 
     return (
         <>
-            <Head title={isEdit ? `Edit ${truck.plate}` : 'New truck'} />
+            <Head title={isEdit ? `Editar ${truck.plate}` : 'Nuevo camión'} />
 
             {/* Page header */}
             <div
@@ -184,19 +184,19 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                             marginBottom: '4px',
                         }}
                     >
-                        Home /{' '}
+                        Inicio /{' '}
                         <Link
                             href="/trucks"
                             style={{ color: '#4a909f', textDecoration: 'none' }}
                         >
-                            Trucks
+                            Flota
                         </Link>{' '}
                         /{' '}
                         <Link
                             href="/trucks"
                             style={{ color: '#4a909f', textDecoration: 'none' }}
                         >
-                            Back to fleet
+                            Volver a flota
                         </Link>
                     </div>
                     <h2
@@ -209,7 +209,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                             color: '#123238',
                         }}
                     >
-                        {isEdit ? `Edit ${truck.plate}` : 'New truck'}
+                        {isEdit ? `Editar ${truck.plate}` : 'Nuevo camión'}
                     </h2>
                 </div>
                 <div style={{ display: 'flex', gap: '9px' }}>
@@ -229,7 +229,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Cancel
+                        Cancelar
                     </Link>
                     <button
                         form="truck-form"
@@ -247,7 +247,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Save truck
+                        Guardar camión
                     </button>
                 </div>
             </div>
@@ -289,21 +289,21 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                     color: '#123238',
                                 }}
                             >
-                                Truck details
+                                Detalles del camión
                             </h3>
                             <div
                                 style={{ fontSize: '12.5px', color: '#5E7A80' }}
                             >
-                                Fields marked with * are required.
+                                Los campos marcados con * son obligatorios.
                             </div>
                         </div>
 
                         <div style={{ padding: '20px' }}>
                             {/* IDENTIFICATION */}
-                            <div style={sectionTitleStyle}>Identification</div>
+                            <div style={sectionTitleStyle}>Identificación</div>
                             <div style={fieldGridStyle}>
                                 <div>
-                                    <label style={labelStyle}>Plate *</label>
+                                    <label style={labelStyle}>Placa *</label>
                                     <input
                                         value={form.data.plate}
                                         onChange={(e) =>
@@ -323,7 +323,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        VIN / chassis number
+                                        VIN / número de chasis
                                     </label>
                                     <input
                                         value={form.data.vin}
@@ -335,7 +335,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                     />
                                 </div>
                                 <div>
-                                    <label style={labelStyle}>Make *</label>
+                                    <label style={labelStyle}>Marca *</label>
                                     <input
                                         value={form.data.make}
                                         onChange={(e) =>
@@ -351,7 +351,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                     />
                                 </div>
                                 <div>
-                                    <label style={labelStyle}>Model</label>
+                                    <label style={labelStyle}>Modelo</label>
                                     <input
                                         value={form.data.model}
                                         onChange={(e) =>
@@ -365,7 +365,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                     />
                                 </div>
                                 <div>
-                                    <label style={labelStyle}>Year</label>
+                                    <label style={labelStyle}>Año</label>
                                     <input
                                         value={form.data.year}
                                         onChange={(e) =>
@@ -376,7 +376,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                     />
                                 </div>
                                 <div>
-                                    <label style={labelStyle}>Status</label>
+                                    <label style={labelStyle}>Estado</label>
                                     <select
                                         value={form.data.status}
                                         onChange={(e) =>
@@ -388,14 +388,14 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                         style={inputStyle}
                                     >
                                         <option value="available">
-                                            Available
+                                            Disponible
                                         </option>
-                                        <option value="on_trip">On trip</option>
+                                        <option value="on_trip">En viaje</option>
                                         <option value="in_maintenance">
-                                            In maintenance
+                                            En mantenimiento
                                         </option>
                                         <option value="out_of_service">
-                                            Out of service
+                                            Fuera de servicio
                                         </option>
                                     </select>
                                 </div>
@@ -404,10 +404,10 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                             <div style={dividerStyle} />
 
                             {/* SPECIFICATION */}
-                            <div style={sectionTitleStyle}>Specification</div>
+                            <div style={sectionTitleStyle}>Especificaciones</div>
                             <div style={fieldGridStyle}>
                                 <div>
-                                    <label style={labelStyle}>Body type</label>
+                                    <label style={labelStyle}>Tipo de carrocería</label>
                                     <select
                                         value={form.data.type}
                                         onChange={(e) =>
@@ -424,7 +424,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        Capacity (tons)
+                                        Capacidad (toneladas)
                                     </label>
                                     <input
                                         value={form.data.capacity_tons}
@@ -440,7 +440,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        Odometer (km)
+                                        Odómetro (km)
                                     </label>
                                     <input
                                         value={form.data.odometer_km}
@@ -459,11 +459,11 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                             <div style={dividerStyle} />
 
                             {/* COMPLIANCE */}
-                            <div style={sectionTitleStyle}>Compliance</div>
+                            <div style={sectionTitleStyle}>Documentación</div>
                             <div style={fieldGridStyle}>
                                 <div>
                                     <label style={labelStyle}>
-                                        Insurance expires
+                                        Vence el seguro
                                     </label>
                                     <input
                                         type="date"
@@ -479,7 +479,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                 </div>
                                 <div>
                                     <label style={labelStyle}>
-                                        Inspection expires
+                                        Vence la inspección
                                     </label>
                                     <input
                                         type="date"
@@ -498,13 +498,13 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                             <div style={dividerStyle} />
 
                             {/* NOTES */}
-                            <label style={labelStyle}>Notes</label>
+                            <label style={labelStyle}>Notas</label>
                             <textarea
                                 value={form.data.notes}
                                 onChange={(e) =>
                                     form.setData('notes', e.target.value)
                                 }
-                                placeholder="Maintenance history, restrictions, permits…"
+                                placeholder="Historial de mantenimiento, restricciones, permisos…"
                                 rows={4}
                                 style={{
                                     ...inputStyle,
@@ -560,10 +560,10 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                 color: '#123238',
                             }}
                         >
-                            Photo
+                            Foto
                         </h3>
                         <div style={{ fontSize: '12.5px', color: '#5E7A80' }}>
-                            Shown on the trip board and dispatch lists.
+                            Visible en el tablero de operaciones y listas de despacho.
                         </div>
                     </div>
                     <div style={{ padding: '20px' }}>
@@ -612,7 +612,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                 >
                                     <Camera size={28} strokeWidth={1.5} />
                                     <span style={{ fontSize: '12.5px' }}>
-                                        Drop a truck photo
+                                        Arrastra una foto del camión
                                     </span>
                                 </div>
                             )}
@@ -626,8 +626,7 @@ export default function TruckForm({ truck, bodyTypes }: PageProps) {
                                 marginBottom: 0,
                             }}
                         >
-                            JPG or PNG, landscape, at least 640×480. A clear
-                            side view works best for dispatchers.
+                            JPG o PNG, horizontal, mínimo 640×480. Una vista lateral clara funciona mejor para los despachadores.
                         </p>
                     </div>
                 </section>

@@ -35,7 +35,7 @@ function formatCurrency(v: number) {
 
 function formatDate(d: string) {
     const dt = new Date(d + 'T00:00:00');
-    return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return dt.toLocaleDateString('es-DO', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 // ─── Input style ─────────────────────────────────────────────────────────────
@@ -164,7 +164,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
 
     return (
         <>
-            <Head title="New Invoice" />
+            <Head title="Nueva factura" />
 
             {/* Back link */}
             <button
@@ -183,7 +183,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                 }}
             >
                 <ArrowLeft size={15} />
-                Back to Invoices
+                Volver a Facturas
             </button>
 
             {/* Title */}
@@ -196,7 +196,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                     marginBottom: '24px',
                 }}
             >
-                New Invoice
+                Nueva factura
             </div>
 
             <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
@@ -205,7 +205,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
 
                     {/* Section 1 — Select Client */}
                     <Card>
-                        <SectionLabel>Step 1 — Select Client</SectionLabel>
+                        <SectionLabel>Paso 1 — Seleccionar cliente</SectionLabel>
                         <select
                             style={selectStyle}
                             value={selectedClientId ?? ''}
@@ -213,7 +213,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                 handleClientChange(e.target.value ? Number(e.target.value) : null)
                             }
                         >
-                            <option value="">Select a client to see available orders…</option>
+                            <option value="">Seleccionar cliente para ver órdenes disponibles…</option>
                             {clients.map((c) => (
                                 <option key={c.id} value={c.id}>
                                     {c.name}
@@ -244,7 +244,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                             color: '#123238',
                                         }}
                                     >
-                                        Available Orders
+                                        Órdenes disponibles
                                     </span>
                                     <span
                                         style={{
@@ -279,7 +279,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                         ) : (
                                             <Square size={14} />
                                         )}
-                                        {allSelected ? 'Deselect all' : 'Select all'}
+                                        {allSelected ? 'Deseleccionar todo' : 'Seleccionar todo'}
                                     </button>
                                 )}
                             </div>
@@ -293,7 +293,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                         fontSize: '13px',
                                     }}
                                 >
-                                    No ready orders for this client.
+                                    No hay órdenes listas para este cliente.
                                 </div>
                             ) : (
                                 <div style={{ overflowX: 'auto' }}>
@@ -303,7 +303,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                         <thead>
                                             <tr style={{ borderBottom: '1px solid #E0EBED' }}>
                                                 <th style={{ width: '40px', padding: '8px 12px 8px 20px' }} />
-                                                {['Order #', 'Date', 'Service', 'Route', 'Carrier', 'Amount'].map(
+                                                {['Orden #', 'Fecha', 'Servicio', 'Ruta', 'Naviera', 'Monto'].map(
                                                     (h) => (
                                                         <th
                                                             key={h}
@@ -417,8 +417,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                     <span style={{ fontWeight: 600, color: '#123238' }}>
                                         {selectedOrderIds.length}
                                     </span>{' '}
-                                    order{selectedOrderIds.length !== 1 ? 's' : ''} selected —
-                                    Subtotal:{' '}
+                                    orden{selectedOrderIds.length !== 1 ? 'es' : ''} seleccionada{selectedOrderIds.length !== 1 ? 's' : ''} — Subtotal:{' '}
                                     <span style={{ fontWeight: 700, color: '#1a4e57' }}>
                                         {formatCurrency(subtotal)}
                                     </span>
@@ -430,7 +429,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                     {/* Section 3 — Invoice Settings */}
                     {selectedOrderIds.length > 0 && (
                         <Card>
-                            <SectionLabel>Step 3 — Invoice Settings</SectionLabel>
+                            <SectionLabel>Paso 3 — Configuración de factura</SectionLabel>
                             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                                 <div style={{ flex: 1, minWidth: '140px' }}>
                                     <label
@@ -441,7 +440,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                             marginBottom: '6px',
                                         }}
                                     >
-                                        Tax Rate (%)
+                                        Tasa de impuesto (%)
                                     </label>
                                     <input
                                         type="number"
@@ -464,7 +463,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                             marginBottom: '6px',
                                         }}
                                     >
-                                        Payment Terms
+                                        Condiciones de pago
                                     </label>
                                     <select
                                         value={paymentTerms}
@@ -487,11 +486,11 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                         marginBottom: '6px',
                                     }}
                                 >
-                                    Notes (optional)
+                                    Notas (opcional)
                                 </label>
                                 <textarea
                                     rows={3}
-                                    placeholder="Payment instructions, references, etc."
+                                    placeholder="Instrucciones de pago, referencias, etc."
                                     value={notes}
                                     onChange={(e) => setNotes(e.target.value)}
                                     style={{
@@ -523,7 +522,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                     marginBottom: '20px',
                                 }}
                             >
-                                Summary
+                                Resumen
                             </div>
 
                             {/* Line items */}
@@ -610,7 +609,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                                 : 'pointer',
                                     }}
                                 >
-                                    {submitting ? 'Generating…' : 'Generate Invoice →'}
+                                    {submitting ? 'Generando…' : 'Generar factura →'}
                                 </button>
                                 <button
                                     onClick={() => router.get('/invoices')}
@@ -626,7 +625,7 @@ export default function CreateInvoice({ readyOrders = [], clients = [] }: Create
                                         cursor: 'pointer',
                                     }}
                                 >
-                                    Cancel
+                                    Cancelar
                                 </button>
                             </div>
                         </Card>

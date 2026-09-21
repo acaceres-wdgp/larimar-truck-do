@@ -42,24 +42,24 @@ const ORDER_STATUS: Record<
     OrderStatus,
     { bg: string; fg: string; dot: string; label: string }
 > = {
-    open: { bg: '#EEF3F4', fg: '#3D5F66', dot: '#7FA3AB', label: 'Open' },
+    open: { bg: '#EEF3F4', fg: '#3D5F66', dot: '#7FA3AB', label: 'Abierta' },
     ready: {
         bg: '#E6F4EC',
         fg: '#1F5C3D',
         dot: '#2E8055',
-        label: 'Ready to Invoice',
+        label: 'Lista para facturar',
     },
     invoiced: {
         bg: '#EAF2FA',
         fg: '#2C4E72',
         dot: '#5B84B1',
-        label: 'Invoiced',
+        label: 'Facturada',
     },
     cancelled: {
         bg: '#F0EFEF',
         fg: '#595959',
         dot: '#9B9B9B',
-        label: 'Cancelled',
+        label: 'Cancelada',
     },
 };
 
@@ -75,11 +75,11 @@ const TRIP_STATUS: Record<TripStatus, { bg: string; fg: string; dot: string }> =
     };
 
 const STATUS_TABS: { key: string; label: string }[] = [
-    { key: 'all', label: 'All' },
-    { key: 'open', label: 'Open' },
-    { key: 'ready', label: 'Ready' },
-    { key: 'invoiced', label: 'Invoiced' },
-    { key: 'cancelled', label: 'Cancelled' },
+    { key: 'all', label: 'Todas' },
+    { key: 'open', label: 'Abierta' },
+    { key: 'ready', label: 'Lista' },
+    { key: 'invoiced', label: 'Facturada' },
+    { key: 'cancelled', label: 'Cancelada' },
 ];
 
 // ─── KpiCard ──────────────────────────────────────────────────────────────────
@@ -174,7 +174,7 @@ function StatusChip({
                     flexShrink: 0,
                 }}
             />
-            {status}
+            {({ Scheduled: 'Programado', 'At port': 'En puerto', 'On the road': 'En ruta', Paused: 'Pausado', Delayed: 'Retrasado', Completed: 'Completado', Cancelled: 'Cancelado' } as Record<string,string>)[status] ?? status}
         </span>
     );
 }
@@ -276,7 +276,7 @@ export default function Orders({
 
     return (
         <>
-            <Head title="Orders" />
+            <Head title="Órdenes" />
 
             {/* KPI row */}
             <div
@@ -288,21 +288,21 @@ export default function Orders({
                 }}
             >
                 <KpiCard
-                    label="Pending Invoice"
+                    label="Facturación pendiente"
                     value={pendingInvoice}
-                    sub="Ready to be invoiced"
+                    sub="Listas para facturar"
                     accent={pendingInvoice > 0 ? '#1F5C3D' : '#123238'}
                 />
                 <KpiCard
-                    label="Overdue Open"
+                    label="Vencidas abiertas"
                     value={overdueOpen}
-                    sub="Past due date, still open"
+                    sub="Pasó la fecha, aún abiertas"
                     accent={overdueOpen > 0 ? '#8A2A21' : '#123238'}
                 />
                 <KpiCard
-                    label="Due Today"
+                    label="Vencen hoy"
                     value={dueToday}
-                    sub="Open orders due today"
+                    sub="Órdenes abiertas que vencen hoy"
                 />
             </div>
 
@@ -344,7 +344,7 @@ export default function Orders({
                                 color: '#123238',
                             }}
                         >
-                            Orders
+                            Órdenes
                         </span>
                         <span
                             style={{
@@ -364,7 +364,7 @@ export default function Orders({
                     <div style={{ position: 'relative' }}>
                         <input
                             type="text"
-                            placeholder="Search client, order #, route…"
+                            placeholder="Buscar cliente, orden #, ruta…"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             style={{
@@ -461,14 +461,14 @@ export default function Orders({
                             marginRight: '2px',
                         }}
                     >
-                        Filters:
+                        Filtros:
                     </span>
                     <input
                         type="date"
                         value={dateFrom}
                         onChange={(e) => setDateFrom(e.target.value)}
                         style={filterInputStyle}
-                        title="Date from"
+                        title="Fecha desde"
                     />
                     <span style={{ fontSize: '12px', color: '#9DB3B8' }}>
                         →
@@ -478,14 +478,14 @@ export default function Orders({
                         value={dateTo}
                         onChange={(e) => setDateTo(e.target.value)}
                         style={filterInputStyle}
-                        title="Date to"
+                        title="Fecha hasta"
                     />
                     <select
                         value={truckFilter}
                         onChange={(e) => setTruckFilter(e.target.value)}
                         style={filterInputStyle}
                     >
-                        <option value="">All Trucks</option>
+                        <option value="">Todos los camiones</option>
                         {trucks.map((t) => (
                             <option key={t} value={t}>
                                 {t}
@@ -497,7 +497,7 @@ export default function Orders({
                         onChange={(e) => setDriverFilter(e.target.value)}
                         style={filterInputStyle}
                     >
-                        <option value="">All Drivers</option>
+                        <option value="">Todos los choferes</option>
                         {drivers.map((d) => (
                             <option key={d} value={d}>
                                 {d}
@@ -521,7 +521,7 @@ export default function Orders({
                                 padding: '4px 6px',
                             }}
                         >
-                            Clear
+                            Limpiar
                         </button>
                     )}
                 </div>
@@ -537,16 +537,16 @@ export default function Orders({
                     }}
                 >
                     <span style={thStyle}>#</span>
-                    <span style={thStyle}>Client</span>
-                    <span style={thStyle}>Date</span>
-                    {showRoute && <span style={thStyle}>Route</span>}
+                    <span style={thStyle}>Cliente</span>
+                    <span style={thStyle}>Fecha</span>
+                    {showRoute && <span style={thStyle}>Ruta</span>}
                     {showTruckCol && (
-                        <span style={thStyle}>Truck / Driver</span>
+                        <span style={thStyle}>Camión / Chofer</span>
                     )}
-                    {showTripStatus && <span style={thStyle}>Trip Status</span>}
-                    <span style={thStyle}>Order Status</span>
+                    {showTripStatus && <span style={thStyle}>Estado del viaje</span>}
+                    <span style={thStyle}>Estado de orden</span>
                     <span style={{ ...thStyle, textAlign: 'right' }}>
-                        Action
+                        Acción
                     </span>
                 </div>
 
@@ -560,7 +560,7 @@ export default function Orders({
                             color: '#9DB3B8',
                         }}
                     >
-                        No orders match the current filters.
+                        Ninguna orden coincide con los filtros.
                     </div>
                 ) : (
                     filtered.map((order) => {
@@ -668,7 +668,7 @@ export default function Orders({
                                                 <span
                                                     style={{ color: '#C4483A' }}
                                                 >
-                                                    No truck
+                                                    Sin camión
                                                 </span>
                                             )}
                                         </div>
@@ -739,7 +739,7 @@ export default function Orders({
                                             whiteSpace: 'nowrap',
                                         }}
                                     >
-                                        View
+                                        Ver
                                     </button>
                                 </div>
                             </div>
@@ -761,8 +761,8 @@ export default function Orders({
                     }}
                 >
                     <span style={{ fontSize: '12px', color: '#9DB3B8' }}>
-                        Showing {filtered.length} of {orders.length} order
-                        {orders.length !== 1 ? 's' : ''}
+                        Mostrando {filtered.length} de {orders.length} orden
+                        {orders.length !== 1 ? 'es' : ''}
                     </span>
                 </div>
             </div>

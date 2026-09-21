@@ -18,7 +18,7 @@ interface CreatePayrollProps {
     eligibleTrips: EligibleTrip[];
 }
 
-const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_SHORT = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
 function formatDate(iso: string): string {
     const d = new Date(iso + 'T00:00:00');
@@ -145,7 +145,7 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
 
     return (
         <>
-            <Head title="New Payroll Run" />
+            <Head title="Nuevo ciclo de nómina" />
 
             <div style={{ maxWidth: '900px' }}>
                 {/* Back link */}
@@ -154,25 +154,25 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
                         href="/payroll"
                         style={{ fontSize: '13px', color: '#5E7A80', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                     >
-                        ← Back to Payroll
+                        ← Volver a Nómina
                     </a>
                 </div>
 
                 <div style={{ marginBottom: '24px' }}>
                     <h1 style={{ fontFamily: "'Bitter', Georgia, serif", fontSize: '22px', fontWeight: 700, color: '#123238', margin: 0 }}>
-                        New Payroll Run
+                        Nuevo ciclo de nómina
                     </h1>
                     <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#5E7A80' }}>
-                        Select a period and the trips to include in this payroll run.
+                        Selecciona un período y los viajes a incluir en este ciclo de nómina.
                     </p>
                 </div>
 
                 {/* Period selector */}
                 <div style={cardStyle}>
-                    <div style={cardHeaderStyle}>Period</div>
+                    <div style={cardHeaderStyle}>Período</div>
                     <div style={{ padding: '20px', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                         <div style={{ flex: 1, minWidth: '160px' }}>
-                            <label style={{ display: 'block', fontSize: '12px', fontWeight: 500, color: '#5E7A80', marginBottom: '6px' }}>From</label>
+                            <label style={{ display: 'block', fontSize: '12px', fontWeight: 500, color: '#5E7A80', marginBottom: '6px' }}>Desde</label>
                             <input
                                 type="date"
                                 value={periodStart}
@@ -181,7 +181,7 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
                             />
                         </div>
                         <div style={{ flex: 1, minWidth: '160px' }}>
-                            <label style={{ display: 'block', fontSize: '12px', fontWeight: 500, color: '#5E7A80', marginBottom: '6px' }}>To</label>
+                            <label style={{ display: 'block', fontSize: '12px', fontWeight: 500, color: '#5E7A80', marginBottom: '6px' }}>Hasta</label>
                             <input
                                 type="date"
                                 value={periodEnd}
@@ -205,7 +205,7 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
                             gap: '8px',
                         }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                Trips in Period
+                                Viajes en el período
                                 <span style={{
                                     background: '#EEF4F5',
                                     color: '#1a4e57',
@@ -219,15 +219,15 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
                             </div>
                             {tripsInPeriod.length > 0 && (
                                 <div style={{ display: 'flex', gap: '8px' }}>
-                                    <button onClick={selectAll} style={smallBtnStyle('#1a4e57', '#FFFFFF')}>Select All</button>
-                                    <button onClick={deselectAll} style={smallBtnStyle('#EEF4F5', '#1a4e57')}>Deselect All</button>
+                                    <button onClick={selectAll} style={smallBtnStyle('#1a4e57', '#FFFFFF')}>Seleccionar todo</button>
+                                    <button onClick={deselectAll} style={smallBtnStyle('#EEF4F5', '#1a4e57')}>Deseleccionar todo</button>
                                 </div>
                             )}
                         </div>
 
                         {tripsInPeriod.length === 0 ? (
                             <div style={{ padding: '32px 20px', textAlign: 'center', color: '#9DB3B8', fontSize: '13px' }}>
-                                No eligible trips found in this period.
+                                No hay viajes elegibles en este período.
                             </div>
                         ) : (
                             <div>
@@ -264,7 +264,7 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
                                                         {group.driver_name}
                                                     </span>
                                                     <span style={{ marginLeft: '8px', fontSize: '12px', color: '#5E7A80' }}>
-                                                        {group.trips.length} {group.trips.length === 1 ? 'trip' : 'trips'}
+                                                        {group.trips.length} {group.trips.length === 1 ? 'viaje' : 'viajes'}
                                                     </span>
                                                 </div>
                                                 <div style={{ fontFamily: "'Bitter', Georgia, serif", fontWeight: 600, fontSize: '14px', color: '#1a4e57' }}>
@@ -280,10 +280,10 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
                                                         <thead>
                                                             <tr>
                                                                 <th style={subThStyle}></th>
-                                                                <th style={subThStyle}>Date</th>
-                                                                <th style={subThStyle}>Client</th>
-                                                                <th style={subThStyle}>Route</th>
-                                                                <th style={{ ...subThStyle, textAlign: 'right' }}>Driver Pay</th>
+                                                                <th style={subThStyle}>Fecha</th>
+                                                                <th style={subThStyle}>Cliente</th>
+                                                                <th style={subThStyle}>Ruta</th>
+                                                                <th style={{ ...subThStyle, textAlign: 'right' }}>Pago al chofer</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -322,12 +322,12 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
 
                 {/* Notes */}
                 <div style={cardStyle}>
-                    <div style={cardHeaderStyle}>Notes (optional)</div>
+                    <div style={cardHeaderStyle}>Notas (opcional)</div>
                     <div style={{ padding: '16px 20px' }}>
                         <textarea
                             value={notes}
                             onChange={e => setNotes(e.target.value)}
-                            placeholder="Add any notes about this payroll run..."
+                            placeholder="Agrega notas sobre este ciclo de nómina..."
                             rows={3}
                             style={{ ...inputStyle, resize: 'vertical', lineHeight: '1.5' }}
                         />
@@ -353,11 +353,11 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
                                     RD${totalSelected.toLocaleString('en-US', { minimumFractionDigits: 0 })}
                                 </div>
                                 <div style={{ fontSize: '12px', color: '#5E7A80', marginTop: '2px' }}>
-                                    {selectedDriverCount} {selectedDriverCount === 1 ? 'driver' : 'drivers'}, {selectedCount} {selectedCount === 1 ? 'trip' : 'trips'} selected
+                                    {selectedDriverCount} {selectedDriverCount === 1 ? 'chofer' : 'choferes'}, {selectedCount} {selectedCount === 1 ? 'viaje' : 'viajes'} seleccionados
                                 </div>
                             </>
                         ) : (
-                            <div style={{ fontSize: '13px', color: '#9DB3B8' }}>No trips selected</div>
+                            <div style={{ fontSize: '13px', color: '#9DB3B8' }}>No hay viajes seleccionados</div>
                         )}
                     </div>
                     <div style={{ display: 'flex', gap: '10px' }}>
@@ -375,7 +375,7 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
                                 alignItems: 'center',
                             }}
                         >
-                            Cancel
+                            Cancelar
                         </a>
                         <button
                             onClick={handleSubmit}
@@ -392,7 +392,7 @@ export default function CreatePayroll({ eligibleTrips }: CreatePayrollProps) {
                                 transition: 'background 0.12s',
                             }}
                         >
-                            {submitting ? 'Creating…' : 'Create Payroll Run →'}
+                            {submitting ? 'Creando…' : 'Crear ciclo de nómina →'}
                         </button>
                     </div>
                 </div>

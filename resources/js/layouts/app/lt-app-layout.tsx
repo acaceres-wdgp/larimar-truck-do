@@ -48,70 +48,70 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
     {
         key: 'dashboard',
-        label: 'Dashboard',
+        label: 'Panel',
         href: '/dashboard',
         module: 'dashboard',
         Icon: LayoutDashboard,
     },
     {
         key: 'operations',
-        label: 'Operations',
+        label: 'Operaciones',
         href: '/operations',
         module: 'trips',
         Icon: Route,
     },
     {
         key: 'orders',
-        label: 'Orders',
+        label: 'Órdenes',
         href: '/orders',
         module: 'trips',
         Icon: ClipboardList,
     },
     {
         key: 'clients',
-        label: 'Clients',
+        label: 'Clientes',
         href: '/clients',
         module: 'clients',
         Icon: Building2,
     },
     {
         key: 'trucks',
-        label: 'Trucks',
+        label: 'Flota',
         href: '/trucks',
         module: 'trucks',
         Icon: Truck,
     },
     {
         key: 'drivers',
-        label: 'Drivers',
+        label: 'Choferes',
         href: '/drivers',
         module: 'drivers',
         Icon: Users,
     },
     {
         key: 'invoices',
-        label: 'Invoices',
+        label: 'Facturas',
         href: '/invoices',
         module: 'invoices',
         Icon: Receipt,
     },
     {
         key: 'payroll',
-        label: 'Payroll',
+        label: 'Nómina',
         href: '/payroll',
         module: 'payroll',
         Icon: Banknote,
     },
     {
         key: 'reports',
-        label: 'Reports',
+        label: 'Reportes',
         href: '/reports',
         module: 'reports',
         Icon: TrendingUp,
     },
     {
         key: 'settings',
-        label: 'Settings',
+        label: 'Configuración',
         href: '/settings/catalogs',
         module: 'settings',
         Icon: Settings,
@@ -119,48 +119,48 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const MONTHS_LONG = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    'enero',
+    'febrero',
+    'marzo',
+    'abril',
+    'mayo',
+    'junio',
+    'julio',
+    'agosto',
+    'septiembre',
+    'octubre',
+    'noviembre',
+    'diciembre',
 ];
 const DAYS_LONG = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
+    'domingo',
+    'lunes',
+    'martes',
+    'miércoles',
+    'jueves',
+    'viernes',
+    'sábado',
 ];
 const MONTHS_SHORT = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
+    'ene',
+    'feb',
+    'mar',
+    'abr',
+    'may',
+    'jun',
+    'jul',
+    'ago',
+    'sep',
+    'oct',
+    'nov',
+    'dic',
 ];
 
 function getGreeting(): string {
     const h = new Date().getHours();
-    if (h < 12) return 'Good morning';
-    if (h < 18) return 'Good afternoon';
-    return 'Good evening';
+    if (h < 12) return 'Buenos días';
+    if (h < 18) return 'Buenas tardes';
+    return 'Buenas noches';
 }
 
 function formatTimeClock(d: Date): string {
@@ -214,7 +214,6 @@ export default function LtAppLayout({
     const [isCompact, setIsCompact] = useState(false);
     const [hasDateBar, setHasDateBar] = useState(false);
     const [hasSearch, setHasSearch] = useState(false);
-    const [hoverUpgrade, setHoverUpgrade] = useState(false);
     const [hoverNewTrip, setHoverNewTrip] = useState(false);
     const [hoverExport, setHoverExport] = useState(false);
 
@@ -468,60 +467,6 @@ export default function LtAppLayout({
                         borderTop: '1px solid rgba(148,213,221,0.1)',
                     }}
                 >
-                    {/* Trial card */}
-                    {!effectiveCollapsed && (
-                        <div
-                            style={{
-                                background: 'rgba(164,220,222,0.12)',
-                                border: '1px solid rgba(164,220,222,0.22)',
-                                borderRadius: '10px',
-                                padding: '12px 14px',
-                                marginBottom: '10px',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    fontSize: '12px',
-                                    color: '#a4dcde',
-                                    marginBottom: '4px',
-                                    fontWeight: 500,
-                                }}
-                            >
-                                Trial · 9 days left
-                            </div>
-                            <div
-                                style={{
-                                    fontSize: '11.5px',
-                                    color: 'rgba(164,220,222,0.7)',
-                                    marginBottom: '10px',
-                                    lineHeight: 1.4,
-                                }}
-                            >
-                                Up to 5 trucks on the free plan.
-                            </div>
-                            <button
-                                onMouseEnter={() => setHoverUpgrade(true)}
-                                onMouseLeave={() => setHoverUpgrade(false)}
-                                style={{
-                                    width: '100%',
-                                    padding: '6px 0',
-                                    background: hoverUpgrade
-                                        ? '#b9f7fc'
-                                        : '#94d5dd',
-                                    border: 'none',
-                                    borderRadius: '6px',
-                                    fontSize: '12px',
-                                    fontWeight: 600,
-                                    color: '#123238',
-                                    cursor: 'pointer',
-                                    transition: 'background 0.15s',
-                                }}
-                            >
-                                Upgrade plan
-                            </button>
-                        </div>
-                    )}
-
                     {/* Collapse/expand button */}
                     <button
                         onClick={toggleCollapse}
@@ -549,7 +494,7 @@ export default function LtAppLayout({
                         ) : (
                             <>
                                 <ChevronLeft size={16} strokeWidth={1.5} />
-                                <span>Collapse</span>
+                                <span>Contraer</span>
                             </>
                         )}
                     </button>
@@ -705,7 +650,7 @@ export default function LtAppLayout({
                             />
                             <input
                                 type="text"
-                                placeholder="Search…"
+                                placeholder="Buscar…"
                                 style={{
                                     border: 'none',
                                     background: 'transparent',
@@ -885,16 +830,16 @@ export default function LtAppLayout({
                                     <div style={{ padding: '6px 8px' }}>
                                         {[
                                             {
-                                                label: 'Profile',
+                                                label: 'Perfil',
                                                 href: '/settings/profile',
                                             },
                                             {
-                                                label: 'Company settings',
+                                                label: 'Configuración de empresa',
                                                 href: '/settings',
                                             },
                                         ].map((item) => (
                                             <Link
-                                                key={item.href}
+                                                key={item.label}
                                                 href={item.href}
                                                 style={{
                                                     display: 'block',
@@ -932,7 +877,7 @@ export default function LtAppLayout({
                                                 size={14}
                                                 strokeWidth={1.5}
                                             />
-                                            Sign out
+                                            Cerrar sesión
                                         </button>
                                     </div>
                                 </div>
@@ -1060,7 +1005,7 @@ export default function LtAppLayout({
                                             transition: 'background 0.12s',
                                         }}
                                     >
-                                        Export
+                                        Exportar
                                     </button>
                                     <button
                                         onClick={() =>
@@ -1086,7 +1031,7 @@ export default function LtAppLayout({
                                             transition: 'background 0.12s',
                                         }}
                                     >
-                                        New trip
+                                        Nuevo viaje
                                     </button>
                                 </div>
                             )}

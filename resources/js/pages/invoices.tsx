@@ -64,7 +64,7 @@ function StatusChip({ status }: { status: string }) {
                     flexShrink: 0,
                 }}
             />
-            {status}
+            {{ draft: 'Borrador', sent: 'Enviada', paid: 'Pagada', overdue: 'Vencida', cancelled: 'Cancelada' }[status] ?? status}
         </span>
     );
 }
@@ -158,12 +158,20 @@ function formatTerms(terms: string): string {
 function formatDate(d: string | null): string {
     if (!d) return '—';
     const dt = new Date(d + 'T00:00:00');
-    return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return dt.toLocaleDateString('es-DO', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 const STATUS_TABS = ['all', 'draft', 'sent', 'paid', 'overdue', 'cancelled'] as const;
+const STATUS_TAB_LABELS: Record<string, string> = {
+    all: 'Todas',
+    draft: 'Borrador',
+    sent: 'Enviada',
+    paid: 'Pagada',
+    overdue: 'Vencida',
+    cancelled: 'Cancelada',
+};
 
 export default function Invoices({
     overdueCount = 0,
@@ -186,26 +194,26 @@ export default function Invoices({
 
     return (
         <>
-            <Head title="Invoices" />
+            <Head title="Facturas" />
 
             {/* KPI Cards */}
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '20px' }}>
                 <KpiCard
-                    label="Overdue Invoices"
+                    label="Facturas vencidas"
                     value={overdueCount}
-                    sub="Require attention"
+                    sub="Requieren atención"
                     accent="#C4483A"
                 />
                 <KpiCard
-                    label="Ready to Invoice"
+                    label="Listas para facturar"
                     value={readyOrders}
-                    sub="Orders awaiting billing"
+                    sub="Órdenes pendientes de facturar"
                     accent="#2E8055"
                 />
                 <KpiCard
-                    label="Invoices This Month"
+                    label="Facturas del mes"
                     value={invoicesThisMonth}
-                    sub="Current month"
+                    sub="Mes actual"
                     accent="#1a4e57"
                 />
             </div>
@@ -240,7 +248,7 @@ export default function Invoices({
                                     color: '#123238',
                                 }}
                             >
-                                Invoices
+                                Facturas
                             </span>
                             <span
                                 style={{
@@ -257,7 +265,7 @@ export default function Invoices({
                         </div>
                         <input
                             type="text"
-                            placeholder="Search invoice or client…"
+                            placeholder="Buscar factura o cliente…"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             style={{
@@ -290,7 +298,7 @@ export default function Invoices({
                         }}
                     >
                         <Plus size={15} />
-                        New Invoice
+                        Nueva factura
                     </Link>
                 </div>
 
@@ -321,7 +329,7 @@ export default function Invoices({
                                 transition: 'color 0.15s',
                             }}
                         >
-                            {tab === 'all' ? 'All' : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                            {STATUS_TAB_LABELS[tab] ?? tab}
                         </button>
                     ))}
                 </div>
@@ -338,13 +346,13 @@ export default function Invoices({
                         <thead>
                             <tr style={{ borderBottom: '1px solid #E0EBED' }}>
                                 {[
-                                    { label: 'Invoice #', w: '110px' },
-                                    { label: 'Client', w: 'auto' },
-                                    { label: 'Issued', w: '100px' },
-                                    { label: 'Due', w: '100px' },
-                                    { label: 'Orders', w: '70px' },
+                                    { label: 'Factura #', w: '110px' },
+                                    { label: 'Cliente', w: 'auto' },
+                                    { label: 'Emitida', w: '100px' },
+                                    { label: 'Vence', w: '100px' },
+                                    { label: 'Órdenes', w: '70px' },
                                     { label: 'Total', w: '130px' },
-                                    { label: 'Status', w: '110px' },
+                                    { label: 'Estado', w: '110px' },
                                     { label: '', w: '60px' },
                                 ].map(({ label, w }) => (
                                     <th
@@ -378,7 +386,7 @@ export default function Invoices({
                                             fontSize: '13px',
                                         }}
                                     >
-                                        No invoices found.
+                                        No se encontraron facturas.
                                     </td>
                                 </tr>
                             ) : (
@@ -482,7 +490,7 @@ export default function Invoices({
                                                     e.stopPropagation();
                                                     router.get(`/invoices/${inv.id}`);
                                                 }}
-                                                title="View"
+                                                title="Ver"
                                                 style={{
                                                     background: 'none',
                                                     border: '1px solid #DCE8EA',
@@ -513,7 +521,7 @@ export default function Invoices({
                         color: '#9DB3B8',
                     }}
                 >
-                    {filtered.length} invoice{filtered.length !== 1 ? 's' : ''} shown
+                    {filtered.length} factura{filtered.length !== 1 ? 's' : ''} mostrada{filtered.length !== 1 ? 's' : ''}
                 </div>
             </div>
         </>

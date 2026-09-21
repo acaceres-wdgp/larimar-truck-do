@@ -72,33 +72,33 @@ const ROLE_CONFIG: Record<
 > = {
     administrator: {
         color: '#1a4e57',
-        label: 'Administrator',
-        description: 'Full access, including users, catalogs and billing.',
+        label: 'Administrador',
+        description: 'Acceso total, incluyendo usuarios, catálogos y facturación.',
     },
     operations: {
         color: '#2E8055',
-        label: 'Operations',
-        description: 'Runs the board and the fleet. No user management.',
+        label: 'Operaciones',
+        description: 'Gestiona el tablero y la flota. Sin administración de usuarios.',
     },
     dispatcher: {
         color: '#B07C2E',
-        label: 'Dispatcher',
-        description: 'Schedules and updates trips. Read-only elsewhere.',
+        label: 'Despachador',
+        description: 'Programa y actualiza viajes. Solo lectura en el resto.',
     },
     accountant: {
         color: '#4A6BB0',
-        label: 'Accountant',
-        description: 'Invoices, receivables and client billing data.',
+        label: 'Contador',
+        description: 'Facturas, cuentas por cobrar y datos de facturación de clientes.',
     },
     viewer: {
         color: '#8AA4A9',
-        label: 'Viewer',
-        description: 'Looks, never touches. Good for owners and auditors.',
+        label: 'Observador',
+        description: 'Solo visualiza. Ideal para propietarios y auditores.',
     },
     custom: {
         color: '#7E9AA0',
-        label: 'Custom',
-        description: 'Hand-picked permissions.',
+        label: 'Personalizado',
+        description: 'Permisos seleccionados manualmente.',
     },
 };
 
@@ -350,12 +350,12 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
         display: 'block',
     };
 
-    const title = isEdit ? `Edit ${user.name}` : 'Invite a user';
-    const breadcrumb = `Home / Settings / Users / ${isEdit ? user.name : 'New user'}`;
+    const title = isEdit ? `Editar ${user.name}` : 'Invitar usuario';
+    const breadcrumb = `Inicio / Configuración / Usuarios / ${isEdit ? user.name : 'Nuevo usuario'}`;
 
     return (
         <>
-            <Head title={`Settings – ${title}`} />
+            <Head title={`Configuración – ${title}`} />
 
             {/* Page header */}
             <div
@@ -405,7 +405,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                             cursor: 'pointer',
                         }}
                     >
-                        Cancel
+                        Cancelar
                     </button>
                     <button
                         type="button"
@@ -422,7 +422,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                             cursor: form.processing ? 'not-allowed' : 'pointer',
                         }}
                     >
-                        {isEdit ? 'Save changes' : 'Send invitation'}
+                        {isEdit ? 'Guardar cambios' : 'Enviar invitación'}
                     </button>
                 </div>
             </div>
@@ -456,7 +456,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                     marginBottom: '18px',
                                 }}
                             >
-                                Basic info
+                                Información básica
                             </div>
                             <div
                                 style={{
@@ -466,7 +466,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                 }}
                             >
                                 <div>
-                                    <label style={labelSt}>Full name *</label>
+                                    <label style={labelSt}>Nombre completo *</label>
                                     <input
                                         style={inputSt}
                                         value={form.data.name}
@@ -488,7 +488,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                     )}
                                 </div>
                                 <div>
-                                    <label style={labelSt}>Email *</label>
+                                    <label style={labelSt}>Correo electrónico *</label>
                                     <input
                                         style={inputSt}
                                         type="email"
@@ -514,7 +514,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                     )}
                                 </div>
                                 <div>
-                                    <label style={labelSt}>Phone</label>
+                                    <label style={labelSt}>Teléfono</label>
                                     <input
                                         style={inputSt}
                                         value={form.data.phone}
@@ -528,7 +528,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                     />
                                 </div>
                                 <div>
-                                    <label style={labelSt}>Job title</label>
+                                    <label style={labelSt}>Cargo</label>
                                     <input
                                         style={inputSt}
                                         value={form.data.job_title}
@@ -538,7 +538,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                                 e.target.value,
                                             )
                                         }
-                                        placeholder="Operations Manager"
+                                        placeholder="Gerente de Operaciones"
                                     />
                                 </div>
                             </div>
@@ -562,7 +562,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                     marginBottom: '16px',
                                 }}
                             >
-                                Role
+                                Rol
                             </div>
                             <div
                                 style={{
@@ -659,7 +659,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                         color: '#123238',
                                     }}
                                 >
-                                    Module permissions
+                                    Permisos por módulo
                                 </div>
                                 <div style={{ display: 'flex', gap: '8px' }}>
                                     <button
@@ -676,7 +676,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                             cursor: 'pointer',
                                         }}
                                     >
-                                        Select all
+                                        Seleccionar todo
                                     </button>
                                     <button
                                         type="button"
@@ -692,7 +692,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                             cursor: 'pointer',
                                         }}
                                     >
-                                        Clear all
+                                        Limpiar todo
                                     </button>
                                 </div>
                             </div>
@@ -733,9 +733,9 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                         letterSpacing: '0.05em',
                                     }}
                                 >
-                                    Module
+                                    Módulo
                                 </div>
-                                {['View', 'Create', 'Edit', 'Delete'].map(
+                                {['Ver', 'Crear', 'Editar', 'Eliminar'].map(
                                     (h) => (
                                         <div
                                             key={h}
@@ -931,7 +931,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                         flexShrink: 0,
                                     }}
                                 >
-                                    {getInitials(form.data.name || 'New user')}
+                                    {getInitials(form.data.name || 'Nuevo usuario')}
                                 </div>
                                 <div>
                                     <div
@@ -941,7 +941,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                             color: '#123238',
                                         }}
                                     >
-                                        {form.data.name || 'New user'}
+                                        {form.data.name || 'Nuevo usuario'}
                                     </div>
                                     <div
                                         style={{
@@ -949,7 +949,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                             color: '#5E7A80',
                                         }}
                                     >
-                                        {form.data.email || 'no email yet'}
+                                        {form.data.email || 'sin correo aún'}
                                     </div>
                                 </div>
                             </div>
@@ -987,15 +987,15 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                     marginBottom: '4px',
                                 }}
                             >
-                                Modules allowed:{' '}
+                                Módulos permitidos:{' '}
                                 <strong style={{ color: '#123238' }}>
-                                    {viewableCount} of 8
+                                    {viewableCount} de 8
                                 </strong>
                             </div>
                             <div
                                 style={{ fontSize: '12.5px', color: '#5E7A80' }}
                             >
-                                Can delete records:{' '}
+                                Puede eliminar registros:{' '}
                                 <strong
                                     style={{
                                         color: canDeleteAny
@@ -1003,7 +1003,7 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                             : '#123238',
                                     }}
                                 >
-                                    {canDeleteAny ? 'Yes' : 'No'}
+                                    {canDeleteAny ? 'Sí' : 'No'}
                                 </strong>
                             </div>
                         </div>
@@ -1026,11 +1026,12 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                     marginBottom: '12px',
                                 }}
                             >
-                                Account status
+                                Estado de la cuenta
                             </div>
                             <div style={{ display: 'flex', gap: '8px' }}>
-                                {['active', 'suspended'].map((s) => {
+                                {(['active', 'suspended'] as const).map((s) => {
                                     const isSelected = form.data.status === s;
+                                    const statusLabel: Record<string, string> = { active: 'Activo', suspended: 'Suspendido' };
                                     return (
                                         <button
                                             key={s}
@@ -1054,10 +1055,9 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                                     ? '#FFFFFF'
                                                     : '#5E7A80',
                                                 cursor: 'pointer',
-                                                textTransform: 'capitalize',
                                             }}
                                         >
-                                            {s}
+                                            {statusLabel[s]}
                                         </button>
                                     );
                                 })}
@@ -1094,8 +1094,8 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                             lineHeight: 1.4,
                                         }}
                                     >
-                                        Email an invitation so they can set
-                                        their own password.
+                                        Enviar invitación por correo para que
+                                        establezcan su propia contraseña.
                                     </span>
                                 </label>
                             )}
@@ -1134,12 +1134,12 @@ export default function UserForm({ user, permissions: initPerms }: PageProps) {
                                 lineHeight: 1.5,
                             }}
                         >
-                            <strong>View is required</strong> — granting create,
-                            edit or delete turns it on automatically.
+                            <strong>Ver es obligatorio</strong> — otorgar crear,
+                            editar o eliminar lo activa automáticamente.
                             <br />
                             <br />
-                            <strong>Settings access</strong> lets a user manage
-                            catalogs and other users.
+                            <strong>Acceso a Configuración</strong> permite
+                            gestionar catálogos y otros usuarios.
                         </div>
                     </div>
                 </div>
@@ -1170,7 +1170,7 @@ function CheckboxCell({
             onClick={handleClick}
             title={
                 locked
-                    ? 'View stays on while create, edit or delete are granted'
+                    ? 'Ver permanece activo mientras crear, editar o eliminar estén habilitados'
                     : undefined
             }
             style={{

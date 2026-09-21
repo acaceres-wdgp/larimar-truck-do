@@ -62,27 +62,27 @@ const ALL_STATUSES: TripStatus[] = [
 ];
 
 const MONTHS = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
 ];
 const DAYS_OF_WEEK = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+    "domingo",
+    "lunes",
+    "martes",
+    "miércoles",
+    "jueves",
+    "viernes",
+    "sábado",
 ];
 
 function toIso(d: Date) {
@@ -160,7 +160,7 @@ function StatusMenu({ tripId, menuRect, onClose, onSelect }: StatusMenuProps) {
                                     flexShrink: 0,
                                 }}
                             />
-                            {s}
+                            {{ Scheduled: 'Programado', 'At port': 'En puerto', 'On the road': 'En ruta', Paused: 'Pausado', Delayed: 'Retrasado', Completed: 'Completado', Cancelled: 'Cancelado' }[s] ?? s}
                         </button>
                     );
                 })}
@@ -334,13 +334,13 @@ function TripRow({
                                             } else {
                                                 setTruckError(
                                                     data.error ??
-                                                        "Truck conflict.",
+                                                        "Conflicto con el camión.",
                                                 );
                                             }
                                         })
                                         .catch(() =>
                                             setTruckError(
-                                                "Could not save. Try again.",
+                                                "No se pudo guardar. Intenta de nuevo.",
                                             ),
                                         );
                                 }}
@@ -354,7 +354,7 @@ function TripRow({
                                     outline: "none",
                                 }}
                             >
-                                <option value="">— Truck</option>
+                                <option value="">— Camión</option>
                                 {trucks.map((t) => {
                                     const busy =
                                         busyTruckIds.has(t.id) &&
@@ -366,7 +366,7 @@ function TripRow({
                                             disabled={busy}
                                         >
                                             {busy
-                                                ? `${t.plate} (in use)`
+                                                ? `${t.plate} (en uso)`
                                                 : t.plate}
                                         </option>
                                     );
@@ -408,13 +408,13 @@ function TripRow({
                                             } else {
                                                 setDriverError(
                                                     data.error ??
-                                                        "Driver conflict.",
+                                                        "Conflicto con el chofer.",
                                                 );
                                             }
                                         })
                                         .catch(() =>
                                             setDriverError(
-                                                "Could not save. Try again.",
+                                                "No se pudo guardar. Intenta de nuevo.",
                                             ),
                                         );
                                 }}
@@ -428,7 +428,7 @@ function TripRow({
                                     outline: "none",
                                 }}
                             >
-                                <option value="">— Driver</option>
+                                <option value="">— Chofer</option>
                                 {drivers.map((d) => {
                                     const busy =
                                         busyDriverIds.has(d.id) &&
@@ -440,7 +440,7 @@ function TripRow({
                                             disabled={busy}
                                         >
                                             {busy
-                                                ? `${d.name} (in use)`
+                                                ? `${d.name} (en uso)`
                                                 : d.name}
                                         </option>
                                     );
@@ -486,19 +486,19 @@ function TripRow({
                             <>
                                 <span>{trip.truck}</span>{" "}
                                 <span style={{ color: "#C4483A" }}>
-                                    · No driver
+                                    · Sin chofer
                                 </span>
                             </>
                         ) : !trip.truck && trip.driver ? (
                             <>
                                 <span style={{ color: "#C4483A" }}>
-                                    No truck
+                                    Sin camión
                                 </span>{" "}
                                 <span>· {trip.driver}</span>
                             </>
                         ) : (
                             <span style={{ color: "#C4483A" }}>
-                                No truck or driver assigned
+                                Sin camión ni chofer asignado
                             </span>
                         )}
                     </div>
@@ -561,7 +561,7 @@ function TripRow({
                         flexShrink: 0,
                     }}
                 />
-                {trip.status}
+                {{ Scheduled: 'Programado', 'At port': 'En puerto', 'On the road': 'En ruta', Paused: 'Pausado', Delayed: 'Retrasado', Completed: 'Completado', Cancelled: 'Cancelado' }[trip.status] ?? trip.status}
                 <ChevronDown
                     size={11}
                     strokeWidth={2.5}
@@ -701,7 +701,7 @@ function TripColumn({
                         color: "#9DB3B8",
                     }}
                 >
-                    No trips for this day.
+                    Sin viajes para este día.
                 </div>
             ) : (
                 trips.map((trip) => {
@@ -885,12 +885,12 @@ function TripControlBoard({
 
     const displayDateLabel =
         boardDay === 0
-            ? `Today — ${DAYS_OF_WEEK[today.getDay()]}, ${MONTHS[today.getMonth()]} ${today.getDate()}`
+            ? `Hoy — ${DAYS_OF_WEEK[today.getDay()]}, ${today.getDate()} de ${MONTHS[today.getMonth()]}`
             : boardDay === 1
-              ? `Tomorrow — ${DAYS_OF_WEEK[tomorrow.getDay()]}, ${MONTHS[tomorrow.getMonth()]} ${tomorrow.getDate()}`
+              ? `Mañana — ${DAYS_OF_WEEK[tomorrow.getDay()]}, ${tomorrow.getDate()} de ${MONTHS[tomorrow.getMonth()]}`
               : activeDayStr
-                ? `${DAYS_OF_WEEK[activeDay.getDay()]}, ${MONTHS[activeDay.getMonth()]} ${activeDay.getDate()}, ${activeDay.getFullYear()}`
-                : "Pick a date";
+                ? `${DAYS_OF_WEEK[activeDay.getDay()]}, ${activeDay.getDate()} de ${MONTHS[activeDay.getMonth()]} de ${activeDay.getFullYear()}`
+                : "Elegir fecha";
 
     return (
         <div ref={containerRef}>
@@ -913,7 +913,7 @@ function TripControlBoard({
                             color: "#123238",
                         }}
                     >
-                        Trip Control Board
+                        Tablero de operaciones
                     </div>
                     <div
                         style={{
@@ -941,10 +941,10 @@ function TripControlBoard({
                         const isActive = boardDay === d;
                         const label =
                             d === 0
-                                ? "Today"
+                                ? "Hoy"
                                 : d === 1
-                                  ? "Tomorrow"
-                                  : "Pick date";
+                                  ? "Mañana"
+                                  : "Elegir fecha";
                         return (
                             <button
                                 key={String(d)}
@@ -1003,8 +1003,8 @@ function TripControlBoard({
                 }}
             >
                 <TripColumn
-                    title="Imports"
-                    note="Port → City"
+                    title="Importaciones"
+                    note="Puerto → Ciudad"
                     trips={imports}
                     allDayTrips={[...imports, ...exports]}
                     showThumb={showThumb}
@@ -1017,8 +1017,8 @@ function TripControlBoard({
                     onPatch={patchTrip}
                 />
                 <TripColumn
-                    title="Exports"
-                    note="City → Port"
+                    title="Exportaciones"
+                    note="Ciudad → Puerto"
                     trips={exports}
                     allDayTrips={[...imports, ...exports]}
                     showThumb={showThumb}
@@ -1049,16 +1049,12 @@ function TripControlBoard({
                     <div style={{ fontSize: "12.5px", color: "#C4483A" }}>
                         {noTruckCount > 0 && (
                             <span>
-                                {noTruckCount} trip
-                                {noTruckCount !== 1 ? "s" : ""} without a
-                                truck.{" "}
+                                {noTruckCount} viaje{noTruckCount !== 1 ? "s" : ""} sin camión.{" "}
                             </span>
                         )}
                         {noDriverCount > 0 && (
                             <span>
-                                {noDriverCount} trip
-                                {noDriverCount !== 1 ? "s" : ""} without a
-                                driver.
+                                {noDriverCount} viaje{noDriverCount !== 1 ? "s" : ""} sin chofer.
                             </span>
                         )}
                     </div>
@@ -1093,7 +1089,7 @@ function TripControlBoard({
                                         flexShrink: 0,
                                     }}
                                 />
-                                {s}
+                                {{ Scheduled: 'Programado', 'At port': 'En puerto', 'On the road': 'En ruta', Paused: 'Pausado', Delayed: 'Retrasado', Completed: 'Completado', Cancelled: 'Cancelado' }[s] ?? s}
                             </span>
                         );
                     })}
@@ -1133,7 +1129,7 @@ export default function Operations({
 }: OperationsPageProps) {
     return (
         <>
-            <Head title="Operations" />
+            <Head title="Operaciones" />
             <TripControlBoard
                 initialTrips={dbTrips}
                 trucks={trucks}

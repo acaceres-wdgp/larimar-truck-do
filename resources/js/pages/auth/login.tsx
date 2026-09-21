@@ -18,7 +18,7 @@ export default function Login({ status }: Props) {
 
     return (
         <>
-            <Head title="Sign in" />
+            <Head title="Iniciar sesión" />
             <div
                 style={{
                     display: 'flex',
@@ -112,7 +112,7 @@ export default function Login({ status }: Props) {
                                     marginBottom: '24px',
                                 }}
                             >
-                                Fleet operations
+                                Gestión de flota
                             </div>
 
                             <h1
@@ -126,7 +126,7 @@ export default function Login({ status }: Props) {
                                     maxWidth: '380px',
                                 }}
                             >
-                                Every trip, truck and invoice in one place.
+                                Cada viaje, camión y factura en un solo lugar.
                             </h1>
 
                             <p
@@ -138,10 +138,9 @@ export default function Login({ status }: Props) {
                                     margin: 0,
                                 }}
                             >
-                                LarimarTruck brings your dispatch, fleet, and
-                                billing under one roof — so you spend less time
-                                on spreadsheets and more time growing your
-                                operation.
+                                LarimarTruck centraliza tu despacho, flota y
+                                facturación — para que dediques menos tiempo a
+                                hojas de cálculo y más a hacer crecer tu operación.
                             </p>
                         </div>
 
@@ -155,9 +154,9 @@ export default function Login({ status }: Props) {
                             }}
                         >
                             {[
-                                { value: '2,400+', label: 'trips dispatched' },
-                                { value: '18 min', label: 'average setup' },
-                                { value: 'RD$', label: 'invoicing built in' },
+                                { value: '2,400+', label: 'viajes despachados' },
+                                { value: '18 min', label: 'configuración promedio' },
+                                { value: 'RD$', label: 'facturación integrada' },
                             ].map((m, i) => (
                                 <div
                                     key={i}
@@ -251,7 +250,7 @@ export default function Login({ status }: Props) {
                                 margin: '0 0 6px',
                             }}
                         >
-                            Welcome back
+                            Bienvenido de nuevo
                         </h2>
                         <p
                             style={{
@@ -260,7 +259,7 @@ export default function Login({ status }: Props) {
                                 margin: '0 0 28px',
                             }}
                         >
-                            Sign in to your dispatch account.
+                            Inicia sesión en tu cuenta de despacho.
                         </p>
 
                         {/* Card */}
@@ -333,7 +332,7 @@ export default function Login({ status }: Props) {
                                                     color: '#3D5F66',
                                                 }}
                                             >
-                                                Email
+                                                Correo electrónico
                                             </label>
                                             <input
                                                 id="email"
@@ -395,7 +394,7 @@ export default function Login({ status }: Props) {
                                                         color: '#3D5F66',
                                                     }}
                                                 >
-                                                    Password
+                                                    Contraseña
                                                 </label>
                                                 <a
                                                     href="/forgot-password"
@@ -406,7 +405,7 @@ export default function Login({ status }: Props) {
                                                         textDecoration: 'none',
                                                     }}
                                                 >
-                                                    Forgot?
+                                                    ¿Olvidaste tu contraseña?
                                                 </a>
                                             </div>
                                             <div
@@ -546,7 +545,7 @@ export default function Login({ status }: Props) {
                                                     color: '#5E7A80',
                                                 }}
                                             >
-                                                Keep me signed in
+                                                Mantener sesión iniciada
                                             </span>
                                         </label>
 
@@ -582,8 +581,8 @@ export default function Login({ status }: Props) {
                                             }}
                                         >
                                             {processing
-                                                ? 'Signing in…'
-                                                : 'Sign in'}
+                                                ? 'Iniciando sesión…'
+                                                : 'Iniciar sesión'}
                                         </button>
                                     </div>
                                 )}
@@ -598,17 +597,7 @@ export default function Login({ status }: Props) {
                                 color: '#5E7A80',
                             }}
                         >
-                            No account yet?{' '}
-                            <a
-                                href="/register"
-                                style={{
-                                    color: '#4a909f',
-                                    textDecoration: 'none',
-                                    fontWeight: 500,
-                                }}
-                            >
-                                Start a 14-day trial
-                            </a>
+                            ¿No tienes cuenta? Contacta al administrador.
                         </p>
                     </div>
                 </div>

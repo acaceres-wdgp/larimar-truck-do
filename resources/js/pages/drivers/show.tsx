@@ -50,28 +50,28 @@ const DRIVER_STATUS_CFG: Record<
     { label: string; bg: string; fg: string; dot: string; ring: string }
 > = {
     available: {
-        label: 'Available',
+        label: 'Disponible',
         bg: '#E6F4EC',
         fg: '#1F5C3D',
         dot: '#2E8055',
         ring: '#B8E0C4',
     },
     on_trip: {
-        label: 'On trip',
+        label: 'En viaje',
         bg: '#EAF2FA',
         fg: '#2C4E72',
         dot: '#5B84B1',
         ring: '#B3CCE8',
     },
     on_leave: {
-        label: 'On leave',
+        label: 'De licencia',
         bg: '#FBF2E1',
         fg: '#7A5210',
         dot: '#C68A1E',
         ring: '#E8D5A3',
     },
     inactive: {
-        label: 'Inactive',
+        label: 'Inactivo',
         bg: '#FBEAE7',
         fg: '#8A2A21',
         dot: '#C4483A',
@@ -201,12 +201,12 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                             marginBottom: '4px',
                         }}
                     >
-                        Home /{' '}
+                        Inicio /{' '}
                         <Link
                             href="/drivers"
                             style={{ color: '#4a909f', textDecoration: 'none' }}
                         >
-                            Drivers
+                            Choferes
                         </Link>{' '}
                         / {fullName}
                     </div>
@@ -238,7 +238,7 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Back to crew
+                        Volver a choferes
                     </button>
                     <button
                         onClick={() => router.get(`/drivers/${driver.id}/edit`)}
@@ -258,7 +258,7 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                         }}
                     >
                         <Pencil size={14} strokeWidth={1.5} color="#b9f7fc" />
-                        Edit driver
+                        Editar chofer
                     </button>
                 </div>
             </div>
@@ -393,35 +393,35 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                             >
                                 <div>
                                     <div style={fieldLabelStyle}>
-                                        National ID
+                                        Cédula
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {driver.national_id ?? '—'}
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={fieldLabelStyle}>Phone</div>
+                                    <div style={fieldLabelStyle}>Teléfono</div>
                                     <div style={fieldValueStyle}>
                                         {driver.phone ?? '—'}
                                     </div>
                                 </div>
                                 <div>
                                     <div style={fieldLabelStyle}>
-                                        Driver license
+                                        Licencia de conducir
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {driver.license_number}
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={fieldLabelStyle}>Category</div>
+                                    <div style={fieldLabelStyle}>Categoría</div>
                                     <div style={fieldValueStyle}>
                                         {driver.license_category ?? '—'}
                                     </div>
                                 </div>
                                 <div>
                                     <div style={fieldLabelStyle}>
-                                        License expires
+                                        Vencimiento de licencia
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {driver.license_expires_at
@@ -433,14 +433,14 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                                 </div>
                                 <div style={{ gridColumn: '1 / -1' }}>
                                     <div style={fieldLabelStyle}>
-                                        Emergency contact
+                                        Contacto de emergencia
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {driver.emergency_contact ?? '—'}
                                     </div>
                                 </div>
                                 <div style={{ gridColumn: '1 / -1' }}>
-                                    <div style={fieldLabelStyle}>Notes</div>
+                                    <div style={fieldLabelStyle}>Notas</div>
                                     <div
                                         style={{
                                             ...fieldValueStyle,
@@ -451,7 +451,7 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                                                 : '#7E9AA0',
                                         }}
                                     >
-                                        {driver.notes ?? 'No notes on file.'}
+                                        {driver.notes ?? 'Sin notas.'}
                                     </div>
                                 </div>
                             </div>
@@ -468,21 +468,21 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                     >
                         {[
                             {
-                                label: 'Trips on record',
+                                label: 'Viajes registrados',
                                 value: String(metrics.trips_total),
                             },
                             {
-                                label: 'Completed',
+                                label: 'Completados',
                                 value: String(metrics.completed),
                             },
                             {
-                                label: 'Distance (km)',
+                                label: 'Distancia (km)',
                                 value: metrics.distance_km.toLocaleString(
                                     'en-US',
                                 ),
                             },
                             {
-                                label: 'Last trip',
+                                label: 'Último viaje',
                                 value: metrics.last_trip_date
                                     ? formatDate(metrics.last_trip_date)
                                     : '—',
@@ -551,10 +551,10 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                                 color: '#123238',
                             }}
                         >
-                            Trip history
+                            Historial de viajes
                         </h3>
                         <div style={{ fontSize: '12.5px', color: '#5E7A80' }}>
-                            Most recent first · {trips.length} trips on record
+                            Más reciente primero · {trips.length} viajes registrados
                         </div>
                     </div>
 
@@ -570,18 +570,18 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                             borderBottom: '1px solid #EFF5F6',
                         }}
                     >
-                        <div style={thStyle}>Date</div>
-                        <div style={thStyle}>Client &amp; route</div>
+                        <div style={thStyle}>Fecha</div>
+                        <div style={thStyle}>Cliente &amp; ruta</div>
                         {tripTier !== 'compact' && (
-                            <div style={thStyle}>Truck</div>
+                            <div style={thStyle}>Camión</div>
                         )}
-                        {tripTier === 'full' && <div style={thStyle}>Line</div>}
+                        {tripTier === 'full' && <div style={thStyle}>Naviera</div>}
                         {tripTier === 'full' && (
                             <div style={{ ...thStyle, textAlign: 'right' }}>
                                 Km
                             </div>
                         )}
-                        <div style={thStyle}>Status</div>
+                        <div style={thStyle}>Estado</div>
                     </div>
 
                     {/* Trip rows */}
@@ -594,7 +594,7 @@ export default function DriverShow({ driver, trips, metrics }: PageProps) {
                                 color: '#5E7A80',
                             }}
                         >
-                            No trips recorded for this driver yet.
+                            Aún no hay viajes registrados para este chofer.
                         </div>
                     ) : (
                         trips.map((trip) => (
@@ -667,7 +667,7 @@ function DriverTripRow({ trip, tripGridCols, tripTier }: DriverTripRowProps) {
                         color: isImport ? '#1a4e57' : '#4a909f',
                     }}
                 >
-                    {isImport ? 'Import' : 'Export'}
+                    {isImport ? 'Importación' : 'Exportación'}
                 </span>
             </div>
 
@@ -761,7 +761,7 @@ function DriverTripRow({ trip, tripGridCols, tripTier }: DriverTripRowProps) {
                         whiteSpace: 'nowrap',
                     }}
                 >
-                    {trip.status}
+                    {({ Scheduled: 'Programado', 'At port': 'En puerto', 'On the road': 'En ruta', Paused: 'Pausado', Delayed: 'Retrasado', Completed: 'Completado', Cancelled: 'Cancelado' } as Record<string,string>)[trip.status] ?? trip.status}
                 </span>
             </div>
         </div>

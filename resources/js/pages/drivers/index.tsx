@@ -28,28 +28,28 @@ const STATUS_CFG: Record<
     { label: string; bg: string; fg: string; dot: string; ring: string }
 > = {
     available: {
-        label: 'Available',
+        label: 'Disponible',
         bg: '#E6F4EC',
         fg: '#1F5C3D',
         dot: '#2E8055',
         ring: '#B8E0C4',
     },
     on_trip: {
-        label: 'On trip',
+        label: 'En viaje',
         bg: '#EAF2FA',
         fg: '#2C4E72',
         dot: '#5B84B1',
         ring: '#B3CCE8',
     },
     on_leave: {
-        label: 'On leave',
+        label: 'De licencia',
         bg: '#FBF2E1',
         fg: '#7A5210',
         dot: '#C68A1E',
         ring: '#E8D5A3',
     },
     inactive: {
-        label: 'Inactive',
+        label: 'Inactivo',
         bg: '#FBEAE7',
         fg: '#8A2A21',
         dot: '#C4483A',
@@ -58,11 +58,11 @@ const STATUS_CFG: Record<
 };
 
 const STATUS_TABS: { key: string; label: string }[] = [
-    { key: 'all', label: 'All' },
-    { key: 'available', label: 'Available' },
-    { key: 'on_trip', label: 'On trip' },
-    { key: 'on_leave', label: 'On leave' },
-    { key: 'inactive', label: 'Inactive' },
+    { key: 'all', label: 'Todos' },
+    { key: 'available', label: 'Disponible' },
+    { key: 'on_trip', label: 'En viaje' },
+    { key: 'on_leave', label: 'De licencia' },
+    { key: 'inactive', label: 'Inactivo' },
 ];
 
 function expiringLicenseCount(drivers: DriverRow[]): number {
@@ -142,7 +142,7 @@ export default function DriversIndex({ drivers }: PageProps) {
 
     return (
         <>
-            <Head title="Drivers" />
+            <Head title="Choferes" />
 
             {/* Page header */}
             <div
@@ -163,7 +163,7 @@ export default function DriversIndex({ drivers }: PageProps) {
                             marginBottom: '4px',
                         }}
                     >
-                        Home / Drivers
+                        Inicio / Choferes
                     </div>
                     <h2
                         style={{
@@ -175,7 +175,7 @@ export default function DriversIndex({ drivers }: PageProps) {
                             color: '#123238',
                         }}
                     >
-                        Crew
+                        Choferes
                     </h2>
                 </div>
                 <div style={{ display: 'flex', gap: '9px' }}>
@@ -192,7 +192,7 @@ export default function DriversIndex({ drivers }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Export
+                        Exportar
                     </button>
                     <button
                         onClick={() => router.get('/drivers/create')}
@@ -212,7 +212,7 @@ export default function DriversIndex({ drivers }: PageProps) {
                         }}
                     >
                         <Plus size={15} strokeWidth={2} color="#b9f7fc" />
-                        New driver
+                        Nuevo chofer
                     </button>
                 </div>
             </div>
@@ -250,11 +250,11 @@ export default function DriversIndex({ drivers }: PageProps) {
                                 color: '#123238',
                             }}
                         >
-                            Crew
+                            Choferes
                         </h3>
                         <div style={{ fontSize: '12.5px', color: '#5E7A80' }}>
-                            {totalCount} drivers · {availableCount} available ·{' '}
-                            {onTripCount} on the road
+                            {totalCount} choferes · {availableCount} disponibles ·{' '}
+                            {onTripCount} en ruta
                         </div>
                     </div>
                     <div
@@ -287,7 +287,7 @@ export default function DriversIndex({ drivers }: PageProps) {
                             <input
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
-                                placeholder="Name, phone, license…"
+                                placeholder="Nombre, teléfono, licencia…"
                                 style={{
                                     border: 'none',
                                     background: 'transparent',
@@ -355,13 +355,13 @@ export default function DriversIndex({ drivers }: PageProps) {
                         borderBottom: '1px solid #EFF5F6',
                     }}
                 >
-                    {showPhoto && <div style={thStyle}>Photo</div>}
-                    <div style={thStyle}>Name</div>
-                    {showPhone && <div style={thStyle}>Phone</div>}
-                    {showLicense && <div style={thStyle}>License</div>}
-                    <div style={thStyle}>Status</div>
+                    {showPhoto && <div style={thStyle}>Foto</div>}
+                    <div style={thStyle}>Nombre</div>
+                    {showPhone && <div style={thStyle}>Teléfono</div>}
+                    {showLicense && <div style={thStyle}>Licencia</div>}
+                    <div style={thStyle}>Estado</div>
                     <div style={{ ...thStyle, textAlign: 'right' }}>
-                        Actions
+                        Acciones
                     </div>
                 </div>
 
@@ -388,7 +388,7 @@ export default function DriversIndex({ drivers }: PageProps) {
                             color: '#5E7A80',
                         }}
                     >
-                        No drivers match this filter.
+                        Ningún chofer coincide con este filtro.
                     </div>
                 )}
 
@@ -405,7 +405,7 @@ export default function DriversIndex({ drivers }: PageProps) {
                     }}
                 >
                     <span style={{ fontSize: '11.5px', color: '#5E7A80' }}>
-                        Showing {filtered.length} of {totalCount} drivers
+                        Mostrando {filtered.length} de {totalCount} choferes
                     </span>
                     <span
                         style={{
@@ -414,7 +414,7 @@ export default function DriversIndex({ drivers }: PageProps) {
                             color: '#5E7A80',
                         }}
                     >
-                        {expiringCount} with a license expiring in 60 days
+                        {expiringCount} con licencia por vencer en 60 días
                     </span>
                 </div>
             </section>
@@ -594,7 +594,7 @@ function DriverRowItem({
                                 whiteSpace: 'nowrap',
                             }}
                         >
-                            Expires {formatDate(driver.license_expires_at)}
+                            Vence {formatDate(driver.license_expires_at)}
                         </div>
                     )}
                 </div>
@@ -643,7 +643,7 @@ function DriverRowItem({
                     onClick={() => router.get(`/drivers/${driver.id}`)}
                     onMouseEnter={() => setHoverView(true)}
                     onMouseLeave={() => setHoverView(false)}
-                    title="View driver"
+                    title="Ver chofer"
                     style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -664,7 +664,7 @@ function DriverRowItem({
                     onClick={() => router.get(`/drivers/${driver.id}/edit`)}
                     onMouseEnter={() => setHoverEdit(true)}
                     onMouseLeave={() => setHoverEdit(false)}
-                    title="Edit driver"
+                    title="Editar chofer"
                     style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -685,7 +685,7 @@ function DriverRowItem({
                     onClick={() => onDelete(driver)}
                     onMouseEnter={() => setHoverDelete(true)}
                     onMouseLeave={() => setHoverDelete(false)}
-                    title="Remove driver"
+                    title="Eliminar chofer"
                     style={{
                         display: 'flex',
                         alignItems: 'center',

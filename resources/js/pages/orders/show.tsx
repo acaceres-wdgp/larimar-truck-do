@@ -54,24 +54,24 @@ const ORDER_STATUS: Record<
     OrderStatus,
     { bg: string; fg: string; dot: string; label: string }
 > = {
-    open: { bg: '#EEF3F4', fg: '#3D5F66', dot: '#7FA3AB', label: 'Open' },
+    open: { bg: '#EEF3F4', fg: '#3D5F66', dot: '#7FA3AB', label: 'Abierta' },
     ready: {
         bg: '#E6F4EC',
         fg: '#1F5C3D',
         dot: '#2E8055',
-        label: 'Ready to Invoice',
+        label: 'Lista para facturar',
     },
     invoiced: {
         bg: '#EAF2FA',
         fg: '#2C4E72',
         dot: '#5B84B1',
-        label: 'Invoiced',
+        label: 'Facturada',
     },
     cancelled: {
         bg: '#F0EFEF',
         fg: '#595959',
         dot: '#9B9B9B',
-        label: 'Cancelled',
+        label: 'Cancelada',
     },
 };
 
@@ -135,7 +135,7 @@ function StatusChip({
                     flexShrink: 0,
                 }}
             />
-            {status}
+            {({ Scheduled: 'Programado', 'At port': 'En puerto', 'On the road': 'En ruta', Paused: 'Pausado', Delayed: 'Retrasado', Completed: 'Completado', Cancelled: 'Cancelado' } as Record<string,string>)[status] ?? status}
         </span>
     );
 }
@@ -229,13 +229,13 @@ export default function OrderShow({ order }: PageProps) {
     const tsCfg = t?.status ? TRIP_STATUS[t.status] : null;
 
     function handleComplete() {
-        if (!confirm('Mark this order as ready to invoice?')) return;
+        if (!confirm('¿Marcar esta orden como lista para facturar?')) return;
         router.patch(`/orders/${order.id}/complete`);
     }
 
     return (
         <>
-            <Head title={`Order ${order.order_number}`} />
+            <Head title={`Orden ${order.order_number}`} />
 
             {/* Back link */}
             <div style={{ marginBottom: '18px' }}>
@@ -266,7 +266,7 @@ export default function OrderShow({ order }: PageProps) {
                         <path d="M19 12H5" />
                         <path d="m12 19-7-7 7-7" />
                     </svg>
-                    Back to Orders
+                    Volver a Órdenes
                 </button>
             </div>
 
@@ -333,65 +333,64 @@ export default function OrderShow({ order }: PageProps) {
                         gap: '16px',
                     }}
                 >
-                    <SectionCard title="Trip Details">
-                        <DetailRow label="Client" value={order.client || '—'} />
+                    <SectionCard title="Detalles del viaje">
+                        <DetailRow label="Cliente" value={order.client || '—'} />
                         <DetailRow
-                            label="Type"
+                            label="Tipo"
                             value={
                                 t?.type
-                                    ? t.type.charAt(0).toUpperCase() +
-                                      t.type.slice(1)
+                                    ? ({ import: 'Importación', export: 'Exportación' } as Record<string,string>)[t.type] ?? (t.type.charAt(0).toUpperCase() + t.type.slice(1))
                                     : '—'
                             }
                         />
-                        <DetailRow label="Carrier" value={t?.line ?? '—'} />
+                        <DetailRow label="Naviera" value={t?.line ?? '—'} />
                         <DetailRow
-                            label="Route"
+                            label="Ruta"
                             value={
                                 t?.from && t?.to ? `${t.from} → ${t.to}` : '—'
                             }
                         />
                         <DetailRow
-                            label="Truck"
+                            label="Camión"
                             value={
                                 t?.truck ?? (
                                     <span style={{ color: '#C4483A' }}>
-                                        Not assigned
+                                        Sin asignar
                                     </span>
                                 )
                             }
                         />
                         <DetailRow
-                            label="Driver"
+                            label="Chofer"
                             value={
                                 t?.driver ?? (
                                     <span style={{ color: '#C4483A' }}>
-                                        Not assigned
+                                        Sin asignar
                                     </span>
                                 )
                             }
                         />
                         <DetailRow
-                            label="Distance"
+                            label="Distancia"
                             value={t?.km ? `${t.km} km` : '—'}
                         />
                     </SectionCard>
 
-                    <SectionCard title="Container">
+                    <SectionCard title="Contenedor">
                         <DetailRow
-                            label="Container #"
+                            label="Contenedor #"
                             value={t?.container_number ?? '—'}
                         />
                         <DetailRow
-                            label="Size"
+                            label="Tamaño"
                             value={t?.container_size ?? '—'}
                         />
                         <DetailRow
-                            label="Cargo Type"
+                            label="Tipo de carga"
                             value={t?.cargo_type ?? '—'}
                         />
                         <DetailRow
-                            label="Weight"
+                            label="Peso"
                             value={
                                 t?.weight_tons ? `${t.weight_tons} tons` : '—'
                             }
@@ -407,22 +406,22 @@ export default function OrderShow({ order }: PageProps) {
                         gap: '16px',
                     }}
                 >
-                    <SectionCard title="Financials">
+                    <SectionCard title="Finanzas">
                         <DetailRow
-                            label="Rate"
+                            label="Tarifa"
                             value={formatMoney(t?.rate ?? 0)}
                             accent="#1a4e57"
                         />
                         <DetailRow
-                            label="Fuel Cost"
+                            label="Combustible"
                             value={formatMoney(t?.fuel_cost ?? 0)}
                         />
                         <DetailRow
-                            label="Toll Cost"
+                            label="Peajes"
                             value={formatMoney(t?.toll_cost ?? 0)}
                         />
                         <DetailRow
-                            label="Driver Pay"
+                            label="Pago al chofer"
                             value={formatMoney(t?.driver_pay ?? 0)}
                         />
                         <div
@@ -433,7 +432,7 @@ export default function OrderShow({ order }: PageProps) {
                             }}
                         >
                             <DetailRow
-                                label="Margin"
+                                label="Margen"
                                 value={formatMoney(t?.margin ?? 0)}
                                 accent={
                                     (t?.margin ?? 0) >= 0
@@ -444,7 +443,7 @@ export default function OrderShow({ order }: PageProps) {
                         </div>
                     </SectionCard>
 
-                    <SectionCard title="Status">
+                    <SectionCard title="Estado">
                         {/* Trip status */}
                         <div style={{ marginBottom: '12px' }}>
                             <div
@@ -454,7 +453,7 @@ export default function OrderShow({ order }: PageProps) {
                                     marginBottom: '6px',
                                 }}
                             >
-                                Trip Status
+                                Estado del viaje
                             </div>
                             {tsCfg && t?.status ? (
                                 <StatusChip status={t.status} cfg={tsCfg} />
@@ -479,7 +478,7 @@ export default function OrderShow({ order }: PageProps) {
                                     marginBottom: '6px',
                                 }}
                             >
-                                Order Status
+                                Estado de orden
                             </div>
                             <StatusChip status={osCfg.label} cfg={osCfg} />
                         </div>
@@ -493,7 +492,7 @@ export default function OrderShow({ order }: PageProps) {
                                     marginBottom: '8px',
                                 }}
                             >
-                                Completed: <strong>{order.completed_at}</strong>
+                                Completada: <strong>{order.completed_at}</strong>
                             </div>
                         )}
 
@@ -506,7 +505,7 @@ export default function OrderShow({ order }: PageProps) {
                                     marginBottom: '8px',
                                 }}
                             >
-                                Invoiced: <strong>{order.invoiced_at}</strong>
+                                Facturada: <strong>{order.invoiced_at}</strong>
                             </div>
                         )}
 
@@ -528,7 +527,7 @@ export default function OrderShow({ order }: PageProps) {
                                     letterSpacing: '0.02em',
                                 }}
                             >
-                                Complete Order
+                                Completar orden
                             </button>
                         )}
 
@@ -546,7 +545,7 @@ export default function OrderShow({ order }: PageProps) {
                                     textAlign: 'center',
                                 }}
                             >
-                                Ready to Invoice
+                                Lista para facturar
                                 {order.completed_at && (
                                     <div
                                         style={{
@@ -556,7 +555,7 @@ export default function OrderShow({ order }: PageProps) {
                                             marginTop: '3px',
                                         }}
                                     >
-                                        Since {order.completed_at}
+                                        Desde {order.completed_at}
                                     </div>
                                 )}
                             </div>
@@ -576,7 +575,7 @@ export default function OrderShow({ order }: PageProps) {
                                     textAlign: 'center',
                                 }}
                             >
-                                Cancelled
+                                Cancelada
                             </div>
                         )}
                     </SectionCard>

@@ -63,28 +63,28 @@ const TRUCK_STATUS_CFG: Record<
     { label: string; bg: string; fg: string; dot: string; ring: string }
 > = {
     available: {
-        label: 'Available',
+        label: 'Disponible',
         bg: '#E6F4EC',
         fg: '#1F5C3D',
         dot: '#2E8055',
         ring: '#B8E0C4',
     },
     on_trip: {
-        label: 'On trip',
+        label: 'En viaje',
         bg: '#EAF2FA',
         fg: '#2C4E72',
         dot: '#5B84B1',
         ring: '#B3CCE8',
     },
     in_maintenance: {
-        label: 'In maintenance',
+        label: 'En mantenimiento',
         bg: '#FBF2E1',
         fg: '#7A5210',
         dot: '#C68A1E',
         ring: '#E8D5A3',
     },
     out_of_service: {
-        label: 'Out of service',
+        label: 'Fuera de servicio',
         bg: '#FBEAE7',
         fg: '#8A2A21',
         dot: '#C4483A',
@@ -217,12 +217,12 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                             marginBottom: '4px',
                         }}
                     >
-                        Home /{' '}
+                        Inicio /{' '}
                         <Link
                             href="/trucks"
                             style={{ color: '#4a909f', textDecoration: 'none' }}
                         >
-                            Trucks
+                            Flota
                         </Link>{' '}
                         / {truck.plate}
                     </div>
@@ -254,7 +254,7 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Back to fleet
+                        Volver a flota
                     </button>
                     <button
                         onClick={() => router.get(`/trucks/${truck.id}/edit`)}
@@ -274,7 +274,7 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                         }}
                     >
                         <Pencil size={14} strokeWidth={1.5} color="#b9f7fc" />
-                        Edit truck
+                        Editar camión
                     </button>
                 </div>
             </div>
@@ -377,7 +377,7 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                                 }}
                             >
                                 <div>
-                                    <div style={fieldLabelStyle}>Plate</div>
+                                    <div style={fieldLabelStyle}>Placa</div>
                                     <div style={fieldValueStyle}>
                                         {truck.plate}
                                     </div>
@@ -398,26 +398,26 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                                 </div>
                                 <div style={{ gridColumn: '1 / -1' }}>
                                     <div style={fieldLabelStyle}>
-                                        Make &amp; model
+                                        Marca y modelo
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {truck.make} {truck.model ?? ''}
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={fieldLabelStyle}>Year</div>
+                                    <div style={fieldLabelStyle}>Año</div>
                                     <div style={fieldValueStyle}>
                                         {truck.year ?? '—'}
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={fieldLabelStyle}>Body type</div>
+                                    <div style={fieldLabelStyle}>Tipo de carrocería</div>
                                     <div style={fieldValueStyle}>
                                         {truck.type ?? '—'}
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={fieldLabelStyle}>Capacity</div>
+                                    <div style={fieldLabelStyle}>Capacidad</div>
                                     <div style={fieldValueStyle}>
                                         {truck.capacity_tons != null
                                             ? `${truck.capacity_tons} t`
@@ -425,14 +425,14 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={fieldLabelStyle}>Odometer</div>
+                                    <div style={fieldLabelStyle}>Odómetro</div>
                                     <div style={fieldValueStyle}>
                                         {formatOdo(truck.odometer_km)}
                                     </div>
                                 </div>
                                 <div>
                                     <div style={fieldLabelStyle}>
-                                        Insurance expires
+                                        Vence el seguro
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {truck.insurance_expires_at
@@ -444,7 +444,7 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                                 </div>
                                 <div>
                                     <div style={fieldLabelStyle}>
-                                        Inspection expires
+                                        Vence la inspección
                                     </div>
                                     <div style={fieldValueStyle}>
                                         {truck.inspection_expires_at
@@ -455,7 +455,7 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                                     </div>
                                 </div>
                                 <div style={{ gridColumn: '1 / -1' }}>
-                                    <div style={fieldLabelStyle}>Notes</div>
+                                    <div style={fieldLabelStyle}>Notas</div>
                                     <div
                                         style={{
                                             ...fieldValueStyle,
@@ -466,7 +466,7 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                                                 : '#7E9AA0',
                                         }}
                                     >
-                                        {truck.notes ?? 'No notes on file.'}
+                                        {truck.notes ?? 'Sin notas registradas.'}
                                     </div>
                                 </div>
                             </div>
@@ -483,21 +483,21 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                     >
                         {[
                             {
-                                label: 'Trips on record',
+                                label: 'Viajes registrados',
                                 value: String(metrics.trips_total),
                             },
                             {
-                                label: 'Completed',
+                                label: 'Completados',
                                 value: String(metrics.completed),
                             },
                             {
-                                label: 'Distance (km)',
+                                label: 'Distancia (km)',
                                 value: metrics.distance_km.toLocaleString(
                                     'en-US',
                                 ),
                             },
                             {
-                                label: 'Last trip',
+                                label: 'Último viaje',
                                 value: metrics.last_trip_date
                                     ? formatDate(metrics.last_trip_date)
                                     : '—',
@@ -566,10 +566,10 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                                 color: '#123238',
                             }}
                         >
-                            Trip history
+                            Historial de viajes
                         </h3>
                         <div style={{ fontSize: '12.5px', color: '#5E7A80' }}>
-                            Most recent first · {trips.length} trips on record
+                            Más recientes primero · {trips.length} viajes registrados
                         </div>
                     </div>
 
@@ -585,18 +585,18 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                             borderBottom: '1px solid #EFF5F6',
                         }}
                     >
-                        <div style={thStyle}>Date</div>
-                        <div style={thStyle}>Client &amp; route</div>
+                        <div style={thStyle}>Fecha</div>
+                        <div style={thStyle}>Cliente y ruta</div>
                         {tripTier !== 'compact' && (
-                            <div style={thStyle}>Driver</div>
+                            <div style={thStyle}>Chofer</div>
                         )}
-                        {tripTier === 'full' && <div style={thStyle}>Line</div>}
+                        {tripTier === 'full' && <div style={thStyle}>Naviera</div>}
                         {tripTier === 'full' && (
                             <div style={{ ...thStyle, textAlign: 'right' }}>
                                 Km
                             </div>
                         )}
-                        <div style={thStyle}>Status</div>
+                        <div style={thStyle}>Estado</div>
                     </div>
 
                     {/* Trip rows */}
@@ -609,7 +609,7 @@ export default function TruckShow({ truck, trips, metrics }: PageProps) {
                                 color: '#5E7A80',
                             }}
                         >
-                            No trips recorded for this truck yet.
+                            No hay viajes registrados para este camión.
                         </div>
                     ) : (
                         trips.map((trip) => (
@@ -682,7 +682,7 @@ function TripRowItem({ trip, tripGridCols, tripTier }: TripRowItemProps) {
                         color: isImport ? '#1a4e57' : '#4a909f',
                     }}
                 >
-                    {isImport ? 'Import' : 'Export'}
+                    {isImport ? 'Importación' : 'Exportación'}
                 </span>
             </div>
 
@@ -776,7 +776,7 @@ function TripRowItem({ trip, tripGridCols, tripTier }: TripRowItemProps) {
                         whiteSpace: 'nowrap',
                     }}
                 >
-                    {trip.status}
+                    {{ Completed: 'Completado', 'On the road': 'En ruta', Scheduled: 'Programado', 'At port': 'En puerto', Paused: 'Pausado', Delayed: 'Retrasado' }[trip.status] ?? trip.status}
                 </span>
             </div>
         </div>
